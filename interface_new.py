@@ -1,7 +1,12 @@
 from tkinter import *
 
 class Aplication:
-    def __init__(self, master=None):
+    def __init__(self, window=None):
+        self.window = window
+        window.geometry('700x700')
+        window.title("Segurança LABMC")
+
+
         l1=Label(window,text = "Número de Iterações")
         l1.grid(row =0,column=0)
 
@@ -65,6 +70,15 @@ class Aplication:
         title_text = StringVar()
         e9 = Entry(window,textvariable = "Function")
         e9.grid(row =8,column=1)
+
+        b1 = Button(window, text = "limpar",width = 12)
+        b1.grid(row=10,column=1)
+
+        b2 = Button(window, text = "Executar",width = 12)
+        b2.grid(row=10,column=3)
+
+        b3 = Button(window, text = "Plot",width = 12)
+        b3.grid(row=10,column=5)
 
 
 root = Tk()
