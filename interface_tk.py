@@ -5,7 +5,10 @@
 #  in conjunction with Tcl version 8.6
 #    Jan 23, 2019 06:21:29 PM -03  platform: Linux
 
+import platform
 import sys
+
+import interface_tk_support
 
 try:
     import Tkinter as tk
@@ -19,7 +22,6 @@ except ImportError:
     import tkinter.ttk as ttk
     py3 = True
 
-import interface_tk_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
@@ -213,7 +215,7 @@ class Toplevel1:
         self.Button1.configure(activebackground="#f9f9f9")
         self.Button1.configure(text='''Limpar Dados''')
 
-        self.Button3 = tk.Button(top)
+        self.Button3 = tk.Button(top,command=self.atualizar)
         self.Button3.place(relx=0.171, rely=0.506, height=30, width=85)
         self.Button3.configure(activebackground="#f9f9f9")
         self.Button3.configure(text='''Executar''')
@@ -250,6 +252,27 @@ class Toplevel1:
         self.Scrolledlistbox1.configure(highlightcolor="#d9d9d9")
         self.Scrolledlistbox1.configure(selectbackground="#c4c4c4")
         self.Scrolledlistbox1.configure(width=10)
+
+    def atualizar(self):
+        dados = []
+        dados.append(self.ent_num_iter.get())
+        dados.append(self.ent_dim.get())
+        dados.append(self.ent_CR.get())
+        dados.append(self.ent_F.get())
+        dados.append(self.ent_pop_size.get())
+        dados.append(self.ent_upper_lim.get())
+        dados.append(self.ent_lower_lim.get())
+
+        try:
+            dados[0]=int(dados[0])
+        except:
+            print("deu erro")
+        for i in dados:
+            print(i)
+        return 1
+
+            #de = DifferentialEvolution(num_iterations=200, dim=10, CR=0.4, F=0.48, population_size=75, print_status=False, func='ackley',upper_limit=5.12,lower_limit=-5.12)
+
 
 # The following code is added to facilitate the Scrolled widgets you specified.
 class AutoScroll(object):
@@ -328,7 +351,6 @@ class ScrolledListBox(AutoScroll, tk.Listbox):
         tk.Listbox.__init__(self, master, **kw)
         AutoScroll.__init__(self, master)
 
-import platform
 def _bound_to_mousewheel(event, widget):
     child = widget.winfo_children()[0]
     if platform.system() == 'Windows' or platform.system() == 'Darwin':
@@ -374,8 +396,3 @@ def _on_shiftmouse(event, widget):
 
 if __name__ == '__main__':
     vp_start_gui()
-
-
-
-
-
