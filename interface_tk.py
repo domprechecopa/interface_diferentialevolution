@@ -50,6 +50,8 @@ def destroy_Toplevel1():
 
 class Toplevel1:
     def __init__(self, top=None):
+
+        self.historico = ''
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
@@ -266,11 +268,13 @@ class Toplevel1:
         try:
             dados[0]=int(dados[0])
         except:
-            print("deu erro")
+            self.printar("deu erro")
         for i in dados:
-            print(i)
+            self.printar(i)
         return 1
-
+    def printar(self,texto):
+        self.historico += texto
+        self.Scrolledlistbox1['text'] = self.historico
             #de = DifferentialEvolution(num_iterations=200, dim=10, CR=0.4, F=0.48, population_size=75, print_status=False, func='ackley',upper_limit=5.12,lower_limit=-5.12)
 
 
