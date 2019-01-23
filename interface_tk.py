@@ -269,13 +269,13 @@ class Toplevel1:
             dados[0]=int(dados[0])
         except:
             self.printar("deu erro")
-        for i in dados:
-            self.printar(i)
+        else:
+            for i in dados:
+                self.printar(i)
         return 1
     def printar(self,texto):
-        self.historico += texto
-        self.Scrolledlistbox1['text'] = self.historico
-            #de = DifferentialEvolution(num_iterations=200, dim=10, CR=0.4, F=0.48, population_size=75, print_status=False, func='ackley',upper_limit=5.12,lower_limit=-5.12)
+        self.Scrolledlistbox1.insert(0,texto)
+                #de = DifferentialEvolution(num_iterations=200, dim=10, CR=0.4, F=0.48, population_size=75, print_status=False, func='ackley',upper_limit=5.12,lower_limit=-5.12)
 
 
 # The following code is added to facilitate the Scrolled widgets you specified.
