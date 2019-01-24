@@ -74,6 +74,7 @@ class DifferentialEvolution(object):
             if self.visualize == True and self.iteration%2==0:
                 self.population.get_visualization()
         # sns.figure(0)
+        plt.figure()
         plt.plot(all_vals, 'r', label='Best')
         plt.plot(avg_vals, 'g', label='Average')
         plt.legend()
@@ -81,6 +82,7 @@ class DifferentialEvolution(object):
         plt.ylabel('Objective Function Value')
         plt.title(self.func.func_name + ', ' + str(self.population.dim) + '-D')
         plt.savefig("1.jpeg")
+        
         pnt = get_best_point(self.population.points)
         self.printar("Final best value: " + str(pnt.z))
         return pnt.z
