@@ -21,6 +21,8 @@ import seaborn as sns
 
 class DifferentialEvolution(object):
     def __init__(self, num_iterations=10, CR=0.4, F=0.48, dim=2, population_size=10, print_status=False, visualize=False, func=None,upper_limit=10,lower_limit=-10,printar = None):
+        if func == '':
+            func = None
         self.printar = printar
         random.seed()
         self.print_status = print_status

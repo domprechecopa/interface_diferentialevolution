@@ -261,7 +261,7 @@ class Toplevel1:
         dados['Population Size']=[self.ent_pop_size.get(),'int']
         dados['Upper Limit']=[self.ent_upper_lim.get(),'float']
         dados['Lower Limit']=[self.ent_lower_lim.get(),'float']
-
+        self.printar(str(len(self.select_funcao.get())))
         error = False
         for i in dados.keys():
             try:
