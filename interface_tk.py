@@ -33,7 +33,8 @@ def destroy_Toplevel1():
 
 class Toplevel1:
     def __init__(self, top=None):
-        self.grafico = None
+        self.grafico = 0
+        self.mostrarprint = True
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
@@ -51,7 +52,7 @@ class Toplevel1:
             [('selected', _compcolor), ('active',_ana2color)])
 
         top.geometry("936x633+489+183")
-        top.title("New Toplevel")
+        top.title("Diferencial Revolution")
         top.configure(highlightcolor="black")
         self.img = []
         self.Input_Dados = Frame(top)
@@ -212,7 +213,7 @@ class Toplevel1:
         self.Canvas1.configure(selectbackground="#c4c4c4")
         self.Canvas1.configure(width=561)
 
-        self.Button4 = Button(top)
+        self.Button4 = Button(top, command = self.grafico_interface)
         self.Button4.place(relx=0.267, rely=0.506, height=30, width=60)
         self.Button4.configure(activebackground="#f9f9f9")
         self.Button4.configure(text='''Plot''')
@@ -250,8 +251,7 @@ class Toplevel1:
         self.next_grafico.place(relx=0.726, rely=0.6, height=30, width=45)
         self.next_grafico.configure(activebackground="#f9f9f9")
         self.next_grafico.configure(text='''Next >''')
-
-        self.Canvas1.create_image(0,0, anchor=NW)    
+   
     def executar(self):
         dados = {}
         dados['Numero de Iteracoes']=[self.ent_num_iter.get(),'int']
@@ -295,11 +295,8 @@ class Toplevel1:
             self.printar ('-'*80)
             self.printar('')
             self.printar ("Final average of all runs: {}".format( val / number_of_runs))
-            self.printar(str(len(self.img)))
-            self.indice = 0
-            self.grafico_interface(self.indice)
 
-    def grafico_interface(self, indice):
+    def grafico_interface(self, indice=0):
             if indice == None or len(self.img)-1==0:
                 self.prev_grafico['state']  = DISABLED
                 self.next_grafico['state']  = DISABLED
@@ -313,7 +310,8 @@ class Toplevel1:
                 self.prev_grafico['state'] = NORMAL
                 self.next_grafico['state']  = NORMAL
 
-            img = ImageTk.PhotoImage(self.img[indice])     
+            img = ImageTk.PhotoImage(self.img[indice])
+            self.printar("Grafico = {}".format(indice+1))
             self.Canvas1.create_image(0,0, anchor=NW, image=img)  
             self.Canvas1.image = img
             self.grafico = indice
@@ -321,16 +319,21 @@ class Toplevel1:
         self.Scrolledlistbox1.insert(END,texto)
         self.Scrolledlistbox1.see('end')
     def next_grafico_action(self):
-        self.grafico_interface(self.indice+1)
-        self.indice+=1
+        self.grafico+=1
+        self.grafico_interface(self.grafico)
+        
 
     def prev_grafico_action(self):
-        self.grafico_interface(self.indice-1)
-        self.indice-=1
+        self.grafico-=1
+        self.grafico_interface(self.grafico)
+        
 
 
     def limpar_historico(self):
         self.Scrolledlistbox1.delete(0, END)
+    
+    def mostrar_printar_action(self):
+        self.printar("pressionado")
                 #
 
 # The following code is added to facilitate the Scrolled widgets you specified.
