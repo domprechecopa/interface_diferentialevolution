@@ -1,5 +1,6 @@
 import sys
 import datetime
+import time
 from tkinter import *
 from tkinter import ttk
 from differential_evolution import DifferentialEvolution
@@ -54,6 +55,8 @@ class Toplevel1:
         top.geometry("936x633+489+183")
         top.title("Diferencial Revolution")
         top.configure(highlightcolor="black")
+        top.resizable(width=False, height=False)
+        self.top = top
         self.img = []
         self.Input_Dados = Frame(top)
         self.Input_Dados.place(relx=0.053, rely=0.032, relheight=0.45
@@ -195,7 +198,7 @@ class Toplevel1:
         self.select_funcao.configure(textvariable=interface_tk_support.combobox)
         self.select_funcao.configure(takefocus="")
 
-        self.Button1 = Button(top)
+        self.Button1 = Button(top, command = self.limpar_dados)
         self.Button1.place(relx=0.053, rely=0.506, height=30, width=104)
         self.Button1.configure(activebackground="#f9f9f9")
         self.Button1.configure(text='''Limpar Dados''')
@@ -261,7 +264,6 @@ class Toplevel1:
         dados['Population Size']=[self.ent_pop_size.get(),'int']
         dados['Upper Limit']=[self.ent_upper_lim.get(),'float']
         dados['Lower Limit']=[self.ent_lower_lim.get(),'float']
-        self.printar(str(len(self.select_funcao.get())))
         error = False
         for i in dados.keys():
             try:
@@ -274,28 +276,37 @@ class Toplevel1:
                 error = True
         self.printar("##################################")
         if not error:
-            number_of_runs = 5
-            val = 0
-            print_time = True
-            self.img = []
-            for i in range(number_of_runs):
-                start = datetime.datetime.now()
-                de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
-                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=self.mostrarprint, func=self.select_funcao.get(),
-                         upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar)
-                val += de.simulate()
-                if print_time:
-                    self.printar('')
-                    self.printar ("Time taken: {}".format( datetime.datetime.now() - start))
-                    self.printar('')
-                temp = Image.open('1.jpeg')
-                
-                self.img.append(temp.resize((560,360),Image.ANTIALIAS))
-                
-            self.printar ('-'*80)
-            self.printar('')
-            self.printar ("Final average of all runs: {}".format( val / number_of_runs))
+            self.run_simulate(dados)
 
+    def run_simulate(self,dados):
+        self.TProgressbar1["value"] = 0            
+        number_of_runs = 5
+        self.TProgressbar1["maximum"] = number_of_runs
+        val = 0
+        print_time = True
+        self.img = []
+        for i in range(number_of_runs):
+            start = datetime.datetime.now()
+            de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
+                        CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=self.mostrarprint, func=self.select_funcao.get(),
+                        upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar)
+            val += de.simulate()
+            if print_time:
+                self.printar('')
+                self.printar ("Time taken: {}".format( datetime.datetime.now() - start))
+                self.printar('')
+            temp = Image.open('1.jpeg')
+            
+            self.img.append(temp.resize((555,360),Image.ANTIALIAS))
+            self.TProgressbar1["value"] +=1
+            self.top.update_idletasks()
+
+            
+        self.printar ('-'*80)
+        self.printar('')
+        self.printar ("Final average of all runs: {}".format( val / number_of_runs))
+        
+        
     def grafico_interface(self, indice=0):
             if indice == None or len(self.img)-1==0:
                 self.prev_grafico['state']  = DISABLED
@@ -342,9 +353,16 @@ class Toplevel1:
             
             self.printar("Print Habilitado")
                
-        self.printar('')      
-
-
+        self.printar('')   
+    def limpar_dados(self):
+        self.ent_num_iter.delete(0, END)
+        self.ent_dim.delete(0, END)
+        self.ent_CR.delete(0, END)
+        self.ent_F.delete(0, END)
+        self.ent_pop_size.delete(0, END)
+        self.ent_upper_lim.delete(0, END)
+        self.ent_lower_lim.delete(0,END)
+        self.TProgressbar1['value'] = 0
 
 class AutoScroll(object):
     '''Configure the scrollbars for a widget.'''
