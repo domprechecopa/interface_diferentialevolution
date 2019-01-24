@@ -225,11 +225,13 @@ class Toplevel1:
                 , relheight=0.0, height=19)
 
         self.credits_text = Label(top)
-        self.credits_text.place(relx=0.011, rely=0.916, height=42, width=336)
+        self.credits_text.place(relx=0.011, rely=0.916, height=42, width=500)
         self.credits_text.configure(activebackground="#f9f9f9")
         self.credits_text.configure(anchor='nw')
         self.credits_text.configure(borderwidth="2")
-        self.credits_text.configure(text='''creditos''')
+        self.credits_text.configure(justify = LEFT)
+        self.credits_text.configure(text='''Desenvolvido pelo Laboratório de Modelagem Computacional
+Discente: Ana Karina''')
 
         self.Scrolledlistbox1 = ScrolledListBox(top)
         self.Scrolledlistbox1.place(relx=0.053, rely=0.648, relheight=0.261
