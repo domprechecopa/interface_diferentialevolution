@@ -80,7 +80,7 @@ class DifferentialEvolution(object):
         plt.xlabel('Iterations')
         plt.ylabel('Objective Function Value')
         plt.title(self.func.func_name + ', ' + str(self.population.dim) + '-D')
-        plt.show()
+        plt.savefig("1.jpeg")
         pnt = get_best_point(self.population.points)
         self.printar("Final best value: " + str(pnt.z))
         return pnt.z

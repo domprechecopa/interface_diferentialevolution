@@ -11,7 +11,7 @@ from tkinter import *
 from tkinter import ttk
 from differential_evolution import DifferentialEvolution
 import interface_tk_support
-import _thread
+from PIL import ImageTk,Image 
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
@@ -40,6 +40,7 @@ def destroy_Toplevel1():
 
 class Toplevel1:
     def __init__(self, top=None):
+        self.grafico = None
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
@@ -59,7 +60,7 @@ class Toplevel1:
         top.geometry("936x633+489+183")
         top.title("New Toplevel")
         top.configure(highlightcolor="black")
-
+        self.img = []
         self.Input_Dados = Frame(top)
         self.Input_Dados.place(relx=0.053, rely=0.032, relheight=0.45
                 , relwidth=0.155)
@@ -269,7 +270,7 @@ class Toplevel1:
                 error = True
         self.printar("##################################")
         if not error:
-            number_of_runs = 5
+            number_of_runs = 1
             val = 0
             print_time = True
 
@@ -281,16 +282,22 @@ class Toplevel1:
                     self.printar('')
                     self.printar ("Time taken: {}".format( datetime.datetime.now() - start))
                     self.printar('')
+                temp = Image.open('1.jpeg')
+                self.img.append(temp.resize((560,360),Image.ANTIALIAS))
+                
             self.printar ('-'*80)
             self.printar('')
             self.printar ("Final average of all runs: {}".format( val / number_of_runs))
-
+            img = ImageTk.PhotoImage(self.img[0])     
+            self.Canvas1.create_image(0,0, anchor=NW, image=img)    
+            self.Canvas1.image = img
+            self.grafico = 0
         
         return 1
     def printar(self,texto):
         self.Scrolledlistbox1.insert(END,texto)
         self.Scrolledlistbox1.see('end')
-
+    def next_grafico():
 
 
     def limpar_historico(self):
