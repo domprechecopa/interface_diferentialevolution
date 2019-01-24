@@ -248,6 +248,16 @@ class Toplevel1:
         self.Button2.place(relx=0.833, rely=0.916, height=30, width=118)
         self.Button2.configure(text='''Limpar Histórico''')
 
+        self.prev_grafico = Button(top,state = DISABLED)
+        self.prev_grafico.place(relx=0.534, rely=0.6, height=30, width=45)
+        self.prev_grafico.configure(text='''< Prev''')
+        self.prev_grafico.configure(width=45)
+
+        self.next_grafico = Button(top, state = DISABLED)
+        self.next_grafico.place(relx=0.726, rely=0.6, height=30, width=45)
+        self.next_grafico.configure(activebackground="#f9f9f9")
+        self.next_grafico.configure(text='''Next >''')
+
     def atualizar(self):
         dados = {}
         dados['Numero de Iteracoes']=[self.ent_num_iter.get(),'int']
@@ -288,16 +298,33 @@ class Toplevel1:
             self.printar ('-'*80)
             self.printar('')
             self.printar ("Final average of all runs: {}".format( val / number_of_runs))
-            img = ImageTk.PhotoImage(self.img[0])     
-            self.Canvas1.create_image(0,0, anchor=NW, image=img)    
-            self.Canvas1.image = img
-            self.grafico = 0
+            self.grafico_interface(0)
+
         
         return 1
+
+    def grafico_interface(self, indice):
+            if indice == None:
+                self.prev_grafico['state']  = DISABLED
+                self.next_grafico['state']  = DISABLED
+            elif indice == 0:
+                self.prev_grafico['state'] = DISABLED
+                self.next_grafico['state'] = NORMAL
+            elif indice == len(self.img)-1:
+                self.prev_grafico['state']  = NORMAL
+                self.next_grafico['state']  = DISABLED
+            else:
+                self.prev_grafico['state'] = NORMAL
+                self.next_grafico['state']  = NORMAL
+
+            img = ImageTk.PhotoImage(self.img[indice])     
+            self.Canvas1.create_image(0,0, anchor=NW, image=img)    
+            self.Canvas1.image = img
+            self.grafico = indice
     def printar(self,texto):
         self.Scrolledlistbox1.insert(END,texto)
         self.Scrolledlistbox1.see('end')
-    def next_grafico():
+    # def next_grafico():
 
 
     def limpar_historico(self):
