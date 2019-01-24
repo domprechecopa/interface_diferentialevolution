@@ -206,7 +206,7 @@ class Toplevel1:
         self.Button1.configure(activebackground="#f9f9f9")
         self.Button1.configure(text='''Limpar Dados''')
 
-        self.Button3 = Button(top,command=self.atualizar)
+        self.Button3 = Button(top,command=self.executar)
         self.Button3.place(relx=0.171, rely=0.506, height=30, width=85)
         self.Button3.configure(activebackground="#f9f9f9")
         self.Button3.configure(text='''Executar''')
@@ -258,15 +258,16 @@ class Toplevel1:
         self.next_grafico.configure(activebackground="#f9f9f9")
         self.next_grafico.configure(text='''Next >''')
 
-    def atualizar(self):
+        self.Canvas1.create_image(0,0, anchor=NW)    
+    def executar(self):
         dados = {}
         dados['Numero de Iteracoes']=[self.ent_num_iter.get(),'int']
         dados['Dim'] = [self.ent_dim.get(),'int']
         dados['CR']=[self.ent_CR.get(),'float']
         dados['F']=[self.ent_F.get(),'float']
-        dados['Polupation Size']=[self.ent_pop_size.get(),'int']
-        dados['Upper Limit']=[self.ent_upper_lim.get(),'int']
-        dados['Lower Limit']=[self.ent_lower_lim.get(),'int']
+        dados['Population Size']=[self.ent_pop_size.get(),'int']
+        dados['Upper Limit']=[self.ent_upper_lim.get(),'float']
+        dados['Lower Limit']=[self.ent_lower_lim.get(),'float']
 
         error = False
         for i in dados.keys():
@@ -286,7 +287,9 @@ class Toplevel1:
 
             for i in range(number_of_runs):
                 start = datetime.datetime.now()
-                de = DifferentialEvolution(num_iterations=200, dim=10, CR=0.4, F=0.48, population_size=75, print_status=False, func='ackley',upper_limit=5.12,lower_limit=-5.12,printar=self.printar)
+                de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
+                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=False, func='ackley',
+                         upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar)
                 val += de.simulate()
                 if print_time:
                     self.printar('')
@@ -299,9 +302,6 @@ class Toplevel1:
             self.printar('')
             self.printar ("Final average of all runs: {}".format( val / number_of_runs))
             self.grafico_interface(0)
-
-        
-        return 1
 
     def grafico_interface(self, indice):
             if indice == None:
@@ -318,7 +318,7 @@ class Toplevel1:
                 self.next_grafico['state']  = NORMAL
 
             img = ImageTk.PhotoImage(self.img[indice])     
-            self.Canvas1.create_image(0,0, anchor=NW, image=img)    
+            self.Canvas1.create_image(0,0, anchor=NW, image=img)  
             self.Canvas1.image = img
             self.grafico = indice
     def printar(self,texto):
