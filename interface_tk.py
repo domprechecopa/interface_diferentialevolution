@@ -241,12 +241,12 @@ class Toplevel1:
         self.Button2.place(relx=0.833, rely=0.916, height=30, width=118)
         self.Button2.configure(text='''Limpar Histórico''')
 
-        self.prev_grafico = Button(top,state = DISABLED)
+        self.prev_grafico = Button(top,state = DISABLED,command=self.prev_grafico_action)
         self.prev_grafico.place(relx=0.534, rely=0.6, height=30, width=45)
         self.prev_grafico.configure(text='''< Prev''')
         self.prev_grafico.configure(width=45)
 
-        self.next_grafico = Button(top, state = DISABLED)
+        self.next_grafico = Button(top, state = DISABLED,command=self.next_grafico_action)
         self.next_grafico.place(relx=0.726, rely=0.6, height=30, width=45)
         self.next_grafico.configure(activebackground="#f9f9f9")
         self.next_grafico.configure(text='''Next >''')
@@ -274,10 +274,10 @@ class Toplevel1:
                 error = True
         self.printar("##################################")
         if not error:
-            number_of_runs = 1
+            number_of_runs = 5
             val = 0
             print_time = True
-
+            self.img = []
             for i in range(number_of_runs):
                 start = datetime.datetime.now()
                 de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
@@ -289,13 +289,15 @@ class Toplevel1:
                     self.printar ("Time taken: {}".format( datetime.datetime.now() - start))
                     self.printar('')
                 temp = Image.open('1.jpeg')
-                self.img = []
+                
                 self.img.append(temp.resize((560,360),Image.ANTIALIAS))
                 
             self.printar ('-'*80)
             self.printar('')
             self.printar ("Final average of all runs: {}".format( val / number_of_runs))
-            self.grafico_interface(0)
+            self.printar(str(len(self.img)))
+            self.indice = 0
+            self.grafico_interface(self.indice)
 
     def grafico_interface(self, indice):
             if indice == None or len(self.img)-1==0:
@@ -318,7 +320,13 @@ class Toplevel1:
     def printar(self,texto):
         self.Scrolledlistbox1.insert(END,texto)
         self.Scrolledlistbox1.see('end')
-    # def next_grafico():
+    def next_grafico_action(self):
+        self.grafico_interface(self.indice+1)
+        self.indice+=1
+
+    def prev_grafico_action(self):
+        self.grafico_interface(self.indice-1)
+        self.indice-=1
 
 
     def limpar_historico(self):
