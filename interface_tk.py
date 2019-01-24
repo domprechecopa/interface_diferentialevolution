@@ -34,7 +34,7 @@ def destroy_Toplevel1():
 class Toplevel1:
     def __init__(self, top=None):
         self.grafico = 0
-        self.mostrarprint = True
+        self.mostrarprint = False
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
@@ -181,7 +181,7 @@ class Toplevel1:
         self.ent_lower_lim.configure(font="TkFixedFont")
         self.ent_lower_lim.configure(selectbackground="#c4c4c4")
 
-        self.Sel_MostrarPrint = Checkbutton(self.Frame2)
+        self.Sel_MostrarPrint = Checkbutton(self.Frame2,command = self.mostrar_printar_action)
         self.Sel_MostrarPrint.place(relx=0.08, rely=0.772, relheight=0.077
                 , relwidth=0.544)
         self.Sel_MostrarPrint.configure(activebackground="#f9f9f9")
@@ -281,7 +281,7 @@ class Toplevel1:
             for i in range(number_of_runs):
                 start = datetime.datetime.now()
                 de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
-                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=False, func='ackley',
+                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=self.mostrarprint, func='ackley',
                          upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar)
                 val += de.simulate()
                 if print_time:
@@ -333,7 +333,16 @@ class Toplevel1:
         self.Scrolledlistbox1.delete(0, END)
     
     def mostrar_printar_action(self):
-        self.printar("pressionado")
+        if self.mostrarprint:
+            self.mostrarprint = False
+            self.printar("Print desabilitado")
+            
+        else:
+            self.mostrarprint = True
+            
+            self.printar("Print Habilitado")
+               
+        self.printar('')      
                 #
 
 # The following code is added to facilitate the Scrolled widgets you specified.

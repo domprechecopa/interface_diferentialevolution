@@ -67,7 +67,7 @@ class DifferentialEvolution(object):
         while self.iteration < self.num_iterations:
             if self.print_status == True and self.iteration%50 == 0:
                 pnt = get_best_point(self.population.points)
-                self.printar (pnt.z, self.population.get_average_objective())
+                self.printar ("{} {}".format(pnt.z, self.population.get_average_objective()))
             self.iterate()
             all_vals.append(get_best_point(self.population.points).z)
             avg_vals.append(self.population.get_average_objective())
