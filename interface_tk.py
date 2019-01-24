@@ -1,6 +1,5 @@
 import sys
 import datetime
-import time
 from tkinter import *
 from tkinter import ttk
 from differential_evolution import DifferentialEvolution
