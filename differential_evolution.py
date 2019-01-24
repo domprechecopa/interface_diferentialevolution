@@ -20,7 +20,8 @@ import seaborn as sns
 
 
 class DifferentialEvolution(object):
-    def __init__(self, num_iterations=10, CR=0.4, F=0.48, dim=2, population_size=10, print_status=False, visualize=False, func=None,upper_limit=10,lower_limit=-10):
+    def __init__(self, num_iterations=10, CR=0.4, F=0.48, dim=2, population_size=10, print_status=False, visualize=False, func=None,upper_limit=10,lower_limit=-10,printar = None):
+        self.printar = printar
         random.seed()
         self.print_status = print_status
         self.visualize = visualize
@@ -62,11 +63,11 @@ class DifferentialEvolution(object):
         pnt = get_best_point(self.population.points)
         all_vals.append(pnt.z)
         avg_vals.append(self.population.get_average_objective())
-        print("Initial best value: " + str(pnt.z))
+        self.printar("Initial best value: " + str(pnt.z))
         while self.iteration < self.num_iterations:
             if self.print_status == True and self.iteration%50 == 0:
                 pnt = get_best_point(self.population.points)
-                print (pnt.z, self.population.get_average_objective())
+                self.printar (pnt.z, self.population.get_average_objective())
             self.iterate()
             all_vals.append(get_best_point(self.population.points).z)
             avg_vals.append(self.population.get_average_objective())
@@ -81,7 +82,7 @@ class DifferentialEvolution(object):
         plt.title(self.func.func_name + ', ' + str(self.population.dim) + '-D')
         plt.show()
         pnt = get_best_point(self.population.points)
-        print("Final best value: " + str(pnt.z))
+        self.printar("Final best value: " + str(pnt.z))
         return pnt.z
 
 
