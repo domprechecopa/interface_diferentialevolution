@@ -35,8 +35,8 @@ class Toplevel1:
     def __init__(self, top=None):
         self.grafico = 0
         self.mostrarprint = False
-        '''This class configures and populates the toplevel window.
-           top is the toplevel containing window.'''
+        self.funcoes =   ['sphere', 'ackley', 'rosenbrock', 'rastrigin']
+
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
         _fgcolor = '#000000'  # X11 color: 'black'
         _compcolor = '#d9d9d9' # X11 color: 'gray85'
@@ -189,7 +189,7 @@ class Toplevel1:
         self.Sel_MostrarPrint.configure(text='''Mostrar''')
         self.Sel_MostrarPrint.configure(variable=interface_tk_support.che86)
 
-        self.select_funcao = ttk.Combobox(self.Frame2)
+        self.select_funcao = ttk.Combobox(self.Frame2,values = self.funcoes)
         self.select_funcao.place(relx=0.08, rely=0.877, relheight=0.07
                 , relwidth=0.856)
         self.select_funcao.configure(textvariable=interface_tk_support.combobox)
@@ -281,7 +281,7 @@ class Toplevel1:
             for i in range(number_of_runs):
                 start = datetime.datetime.now()
                 de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
-                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=self.mostrarprint, func='ackley',
+                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=self.mostrarprint, func=self.select_funcao.get(),
                          upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar)
                 val += de.simulate()
                 if print_time:
@@ -343,7 +343,7 @@ class Toplevel1:
             self.printar("Print Habilitado")
                
         self.printar('')      
-                #
+
 
 # The following code is added to facilitate the Scrolled widgets you specified.
 class AutoScroll(object):
