@@ -3,7 +3,7 @@ import datetime
 from tkinter import *
 from tkinter import ttk
 from differential_evolution import DifferentialEvolution
-import interface_tk_support
+from helpers import interface_tk_support
 from PIL import ImageTk,Image 
 
 def vp_start_gui():
@@ -296,7 +296,7 @@ class Toplevel1:
                 self.printar('')
             temp = Image.open('1.jpeg')
             
-            self.img.append(temp.resize((555,360),Image.ANTIALIAS))
+            self.img.append(temp.resize((558,360),Image.ANTIALIAS))
             self.TProgressbar1["value"] +=1
             self.top.update_idletasks()
 

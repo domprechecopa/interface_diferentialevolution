@@ -7,19 +7,7 @@
 #    Jan 23, 2019 06:20:32 PM -03  platform: Linux
 
 import sys
-
-try:
-    import Tkinter as tk
-except ImportError:
-    import tkinter as tk
-
-try:
-    import ttk
-    py3 = False
-except ImportError:
-    import tkinter.ttk as ttk
-    py3 = True
-
+import tkinter as tk
 def set_Tk_var():
     global che86
     che86 = tk.StringVar()
@@ -38,9 +26,6 @@ def destroy_window():
     top_level.destroy()
     top_level = None
 
-if __name__ == '__main__':
-    import interface_tk
-    interface_tk.vp_start_gui()
 
 
 
