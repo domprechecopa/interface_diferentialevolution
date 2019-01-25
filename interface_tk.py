@@ -257,27 +257,28 @@ Discente: Ana Karina''')
         self.next_grafico.configure(text='''Next >''')
    
     def executar(self):
-        dados = {}
-        dados['Numero de Iteracoes']=[self.ent_num_iter.get(),'int']
-        dados['Dim'] = [self.ent_dim.get(),'int']
-        dados['CR']=[self.ent_CR.get(),'float']
-        dados['F']=[self.ent_F.get(),'float']
-        dados['Population Size']=[self.ent_pop_size.get(),'int']
-        dados['Upper Limit']=[self.ent_upper_lim.get(),'float']
-        dados['Lower Limit']=[self.ent_lower_lim.get(),'float']
+        self.dados = {}
+        self.dados['Numero de Iteracoes']=[self.ent_num_iter.get(),'int']
+        self.dados['Dim'] = [self.ent_dim.get(),'int']
+        self.dados['CR']=[self.ent_CR.get(),'float']
+        self.dados['F']=[self.ent_F.get(),'float']
+        self.dados['Population Size']=[self.ent_pop_size.get(),'int']
+        self.dados['Upper Limit']=[self.ent_upper_lim.get(),'float']
+        self.dados['Lower Limit']=[self.ent_lower_lim.get(),'float']
         error = False
-        for i in dados.keys():
+        self.comma_dot()
+        for i in self.dados.keys():
             try:
-                if(dados[i][1] == 'int' ):
-                    dados[i][0]=int(dados[i][0])
-                elif(dados[i][1] == 'float'):
-                    dados[i][0]=float(dados[i][0])
+                if(self.dados[i][1] == 'int' ):
+                    self.dados[i][0]=int(self.dados[i][0])
+                elif(self.dados[i][1] == 'float'):
+                    self.dados[i][0]=float(self.dados[i][0])
             except:
                 self.printar("Erro na Entrada de dados = {}".format(i))
                 error = True
         self.printar("##################################")
         if not error:
-            self.run_simulate(dados)
+            self.run_simulate(self.dados)
 
     def run_simulate(self,dados):
         self.TProgressbar1["value"] = 0            
@@ -338,6 +339,12 @@ Discente: Ana Karina''')
     def prev_grafico_action(self):
         self.grafico-=1
         self.grafico_interface(self.grafico)
+    def comma_dot(self):
+        for i in self.dados.keys():
+            if self.dados[i][1] == 'float':
+                if ',' in self.dados[i][0]:
+                    self.dados[i][0] = self.dados[i][0].replace(',','.')
+                    
         
 
 

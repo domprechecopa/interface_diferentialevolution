@@ -14,9 +14,8 @@ import time
 from helpers.population import Population
 from helpers.__init__ import get_best_point
 from helpers.test_functions import Function
-
-from matplotlib import pyplot as plt
-import seaborn as sns
+import matplotlib.pyplot as plt
+#import seaborn as sns
 
 
 class DifferentialEvolution(object):
@@ -79,6 +78,7 @@ class DifferentialEvolution(object):
         plt.figure()
         plt.plot(all_vals, 'r', label='Best')
         plt.plot(avg_vals, 'g', label='Average')
+        plt.grid(True, linestyle='-.')
         plt.legend()
         plt.xlabel('Iterations')
         plt.ylabel('Objective Function Value')
