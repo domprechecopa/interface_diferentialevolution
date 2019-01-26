@@ -33,9 +33,12 @@ def destroy_Toplevel1():
 
 class Toplevel1:
     def __init__(self, top=None):
+        #########################
         self.grafico = 0
         self.mostrarprint = False
         self.funcoes =   ['sphere', 'ackley', 'rosenbrock', 'rastrigin']
+##############################
+
 
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
         _fgcolor = '#000000'  # X11 color: 'black'
@@ -51,14 +54,17 @@ class Toplevel1:
         self.style.map('.',background=
             [('selected', _compcolor), ('active',_ana2color)])
 
+##########
         top.geometry("936x633+489+183")
         top.title("Diferencial Revolution")
         top.configure(highlightcolor="black")
         top.resizable(width=False, height=False)
         self.top = top
         self.img = []
+#############
+
         self.Input_Dados = Frame(top)
-        self.Input_Dados.place(relx=0.053, rely=0.032, relheight=0.45
+        self.Input_Dados.place(relx=0.053, rely=0.029, relheight=0.501
                 , relwidth=0.155)
         self.Input_Dados.configure(relief='groove')
         self.Input_Dados.configure(borderwidth="2")
@@ -66,125 +72,124 @@ class Toplevel1:
         self.Input_Dados.configure(width=145)
 
         self.Label1 = Label(self.Input_Dados)
-        self.Label1.place(relx=0.069, rely=0.035, height=22, width=126)
+        self.Label1.place(relx=0.069, rely=0.029, height=22, width=126)
         self.Label1.configure(activebackground="#f9f9f9")
         self.Label1.configure(anchor='sw')
         self.Label1.configure(borderwidth="2")
         self.Label1.configure(text='''Número de Iterações''')
-        self.Label1.configure(width=126)
 
         self.Label1_4 = Label(self.Input_Dados)
-        self.Label1_4.place(relx=0.069, rely=0.14, height=22, width=106)
+        self.Label1_4.place(relx=0.069, rely=0.116, height=22, width=106)
         self.Label1_4.configure(activebackground="#f9f9f9")
         self.Label1_4.configure(anchor='sw')
         self.Label1_4.configure(borderwidth="2")
         self.Label1_4.configure(text='''Dim''')
 
         self.Label1_5 = Label(self.Input_Dados)
-        self.Label1_5.place(relx=0.069, rely=0.246, height=22, width=106)
+        self.Label1_5.place(relx=0.069, rely=0.203, height=22, width=106)
         self.Label1_5.configure(activebackground="#f9f9f9")
         self.Label1_5.configure(anchor='sw')
         self.Label1_5.configure(borderwidth="2")
         self.Label1_5.configure(text='''CR''')
 
         self.Label1_6 = Label(self.Input_Dados)
-        self.Label1_6.place(relx=0.069, rely=0.351, height=22, width=106)
+        self.Label1_6.place(relx=0.069, rely=0.29, height=22, width=106)
         self.Label1_6.configure(activebackground="#f9f9f9")
         self.Label1_6.configure(anchor='sw')
         self.Label1_6.configure(borderwidth="2")
         self.Label1_6.configure(text='''F''')
 
         self.Label1_7 = Label(self.Input_Dados)
-        self.Label1_7.place(relx=0.069, rely=0.456, height=22, width=106)
+        self.Label1_7.place(relx=0.069, rely=0.377, height=22, width=106)
         self.Label1_7.configure(activebackground="#f9f9f9")
         self.Label1_7.configure(anchor='sw')
         self.Label1_7.configure(borderwidth="2")
         self.Label1_7.configure(text='''Polupation Size''')
 
         self.Label1_8 = Label(self.Input_Dados)
-        self.Label1_8.place(relx=0.069, rely=0.561, height=22, width=106)
+        self.Label1_8.place(relx=0.069, rely=0.464, height=22, width=106)
         self.Label1_8.configure(activebackground="#f9f9f9")
         self.Label1_8.configure(anchor='sw')
         self.Label1_8.configure(borderwidth="2")
         self.Label1_8.configure(text='''Upper Limit''')
 
         self.Label1_9 = Label(self.Input_Dados)
-        self.Label1_9.place(relx=0.069, rely=0.667, height=22, width=106)
+        self.Label1_9.place(relx=0.069, rely=0.551, height=22, width=106)
         self.Label1_9.configure(activebackground="#f9f9f9")
         self.Label1_9.configure(anchor='sw')
         self.Label1_9.configure(borderwidth="2")
         self.Label1_9.configure(text='''Lower Limit''')
 
         self.Label1_10 = Label(self.Input_Dados)
-        self.Label1_10.place(relx=0.069, rely=0.772, height=22, width=106)
+        self.Label1_10.place(relx=0.069, rely=0.638, height=22, width=106)
         self.Label1_10.configure(activebackground="#f9f9f9")
         self.Label1_10.configure(anchor='sw')
         self.Label1_10.configure(borderwidth="2")
         self.Label1_10.configure(text='''Print Status''')
 
         self.Label1_1 = Label(self.Input_Dados)
-        self.Label1_1.place(relx=0.069, rely=0.877, height=22, width=106)
+        self.Label1_1.place(relx=0.069, rely=0.725, height=22, width=106)
         self.Label1_1.configure(activebackground="#f9f9f9")
         self.Label1_1.configure(anchor='sw')
         self.Label1_1.configure(borderwidth="2")
         self.Label1_1.configure(text='''Function''')
 
         self.Frame2 = Frame(top)
-        self.Frame2.place(relx=0.203, rely=0.032, relheight=0.45, relwidth=0.134)
-
+        self.Frame2.place(relx=0.203, rely=0.029, relheight=0.501
+                , relwidth=0.134)
         self.Frame2.configure(relief='groove')
         self.Frame2.configure(borderwidth="2")
         self.Frame2.configure(relief='groove')
         self.Frame2.configure(width=125)
 
         self.ent_num_iter = Entry(self.Frame2)
-        self.ent_num_iter.place(relx=0.08, rely=0.035, height=22, relwidth=0.848)
+        self.ent_num_iter.place(relx=0.08, rely=0.029, height=22, relwidth=0.848)
 
         self.ent_num_iter.configure(background="white")
         self.ent_num_iter.configure(font="TkFixedFont")
         self.ent_num_iter.configure(selectbackground="#c4c4c4")
 
         self.ent_dim = Entry(self.Frame2)
-        self.ent_dim.place(relx=0.08, rely=0.14,height=22, relwidth=0.848)
+        self.ent_dim.place(relx=0.08, rely=0.116,height=22, relwidth=0.848)
         self.ent_dim.configure(background="white")
         self.ent_dim.configure(font="TkFixedFont")
         self.ent_dim.configure(selectbackground="#c4c4c4")
 
         self.ent_CR = Entry(self.Frame2)
-        self.ent_CR.place(relx=0.08, rely=0.246,height=22, relwidth=0.848)
+        self.ent_CR.place(relx=0.08, rely=0.203,height=22, relwidth=0.848)
         self.ent_CR.configure(background="white")
         self.ent_CR.configure(font="TkFixedFont")
         self.ent_CR.configure(selectbackground="#c4c4c4")
 
         self.ent_F = Entry(self.Frame2)
-        self.ent_F.place(relx=0.08, rely=0.351,height=22, relwidth=0.848)
+        self.ent_F.place(relx=0.08, rely=0.29,height=22, relwidth=0.848)
         self.ent_F.configure(background="white")
         self.ent_F.configure(font="TkFixedFont")
         self.ent_F.configure(selectbackground="#c4c4c4")
 
         self.ent_pop_size = Entry(self.Frame2)
-        self.ent_pop_size.place(relx=0.08, rely=0.456, height=22, relwidth=0.848)
+        self.ent_pop_size.place(relx=0.08, rely=0.377, height=22, relwidth=0.848)
 
         self.ent_pop_size.configure(background="white")
         self.ent_pop_size.configure(font="TkFixedFont")
         self.ent_pop_size.configure(selectbackground="#c4c4c4")
 
         self.ent_upper_lim = Entry(self.Frame2)
-        self.ent_upper_lim.place(relx=0.08, rely=0.561, height=22
+        self.ent_upper_lim.place(relx=0.08, rely=0.464, height=22
                 , relwidth=0.848)
         self.ent_upper_lim.configure(background="white")
         self.ent_upper_lim.configure(font="TkFixedFont")
         self.ent_upper_lim.configure(selectbackground="#c4c4c4")
 
         self.ent_lower_lim = Entry(self.Frame2)
-        self.ent_lower_lim.place(relx=0.08, rely=0.667, height=22
+        self.ent_lower_lim.place(relx=0.08, rely=0.551, height=22
                 , relwidth=0.848)
         self.ent_lower_lim.configure(background="white")
         self.ent_lower_lim.configure(font="TkFixedFont")
         self.ent_lower_lim.configure(selectbackground="#c4c4c4")
 
-        self.Sel_MostrarPrint = Checkbutton(self.Frame2,command = self.mostrar_printar_action)
-        self.Sel_MostrarPrint.place(relx=0.08, rely=0.772, relheight=0.077
+        self.Sel_MostrarPrint = Checkbutton(self.Frame2)
+        self.Sel_MostrarPrint.place(relx=0.08, rely=0.638, relheight=0.064
                 , relwidth=0.544)
         self.Sel_MostrarPrint.configure(activebackground="#f9f9f9")
         self.Sel_MostrarPrint.configure(justify='left')
@@ -192,40 +197,33 @@ class Toplevel1:
         self.Sel_MostrarPrint.configure(variable=interface_tk_support.che86)
 
         self.select_funcao = ttk.Combobox(self.Frame2,values = self.funcoes)
-        self.select_funcao.place(relx=0.08, rely=0.877, relheight=0.07
+        self.select_funcao.place(relx=0.08, rely=0.725, relheight=0.058
                 , relwidth=0.856)
         self.select_funcao.configure(textvariable=interface_tk_support.combobox)
         self.select_funcao.configure(takefocus="")
 
         self.Button1 = Button(top, command = self.limpar_dados)
-        self.Button1.place(relx=0.053, rely=0.506, height=30, width=104)
+        self.Button1.place(relx=0.053, rely=0.537, height=30, width=104)
         self.Button1.configure(activebackground="#f9f9f9")
         self.Button1.configure(text='''Limpar Dados''')
 
         self.Button3 = Button(top,command=self.executar)
-        self.Button3.place(relx=0.171, rely=0.506, height=30, width=85)
+        self.Button3.place(relx=0.171, rely=0.537, height=30, width=85)
         self.Button3.configure(activebackground="#f9f9f9")
+        self.Button3.configure(state='active')
         self.Button3.configure(text='''Executar''')
 
-        self.Canvas1 = Canvas(top)
-        self.Canvas1.place(relx=0.363, rely=0.032, relheight=0.57
-                , relwidth=0.599)
-        self.Canvas1.configure(borderwidth="2")
-        self.Canvas1.configure(relief='ridge')
-        self.Canvas1.configure(selectbackground="#c4c4c4")
-        self.Canvas1.configure(width=561)
-
         self.Button4 = Button(top, command = self.grafico_interface)
-        self.Button4.place(relx=0.267, rely=0.506, height=30, width=60)
+        self.Button4.place(relx=0.267, rely=0.537, height=30, width=60)
         self.Button4.configure(activebackground="#f9f9f9")
         self.Button4.configure(text='''Plot''')
 
         self.TProgressbar1 = ttk.Progressbar(top)
-        self.TProgressbar1.place(relx=0.053, rely=0.569, relwidth=0.288
+        self.TProgressbar1.place(relx=0.053, rely=0.595, relwidth=0.288
                 , relheight=0.0, height=19)
 
         self.credits_text = Label(top)
-        self.credits_text.place(relx=0.011, rely=0.916, height=42, width=500)
+        self.credits_text.place(relx=0.011, rely=0.914, height=42, width=336)
         self.credits_text.configure(activebackground="#f9f9f9")
         self.credits_text.configure(anchor='nw')
         self.credits_text.configure(borderwidth="2")
@@ -234,7 +232,7 @@ class Toplevel1:
 Discente: Ana Karina''')
 
         self.Scrolledlistbox1 = ScrolledListBox(top)
-        self.Scrolledlistbox1.place(relx=0.053, rely=0.648, relheight=0.261
+        self.Scrolledlistbox1.place(relx=0.053, rely=0.653, relheight=0.239
                 , relwidth=0.906)
         self.Scrolledlistbox1.configure(background="white")
         self.Scrolledlistbox1.configure(font="TkFixedFont")
@@ -243,42 +241,51 @@ Discente: Ana Karina''')
         self.Scrolledlistbox1.configure(width=10)
 
         self.Button2 = Button(top, command= self.limpar_historico)
-        self.Button2.place(relx=0.833, rely=0.916, height=30, width=118)
+        self.Button2.place(relx=0.833, rely=0.914, height=30, width=118)
+        self.Button2.configure(activebackground="#f9f9f9")
         self.Button2.configure(text='''Limpar Histórico''')
 
+        self.Canvas1 = Canvas(top)
+        self.Canvas1.place(relx=0.363, rely=0.029, relheight=0.524
+                , relwidth=0.589)
+        self.Canvas1.configure(borderwidth="2")
+        self.Canvas1.configure(relief='ridge')
+        self.Canvas1.configure(selectbackground="#c4c4c4")
+        self.Canvas1.configure(width=551)
+
         self.prev_grafico = Button(top,state = DISABLED,command=self.prev_grafico_action)
-        self.prev_grafico.place(relx=0.534, rely=0.6, height=30, width=45)
+        self.prev_grafico.place(relx=0.534, rely=0.552, height=30, width=45)
+        self.prev_grafico.configure(activebackground="#f9f9f9")
         self.prev_grafico.configure(text='''< Prev''')
-        self.prev_grafico.configure(width=45)
 
         self.next_grafico = Button(top, state = DISABLED,command=self.next_grafico_action)
-        self.next_grafico.place(relx=0.726, rely=0.6, height=30, width=45)
+        self.next_grafico.place(relx=0.726, rely=0.552, height=30, width=45)
         self.next_grafico.configure(activebackground="#f9f9f9")
         self.next_grafico.configure(text='''Next >''')
-   
+
     def executar(self):
-        self.dados = {}
-        self.dados['Numero de Iteracoes']=[self.ent_num_iter.get(),'int']
-        self.dados['Dim'] = [self.ent_dim.get(),'int']
-        self.dados['CR']=[self.ent_CR.get(),'float']
-        self.dados['F']=[self.ent_F.get(),'float']
-        self.dados['Population Size']=[self.ent_pop_size.get(),'int']
-        self.dados['Upper Limit']=[self.ent_upper_lim.get(),'float']
-        self.dados['Lower Limit']=[self.ent_lower_lim.get(),'float']
-        error = False
-        self.comma_dot()
-        for i in self.dados.keys():
-            try:
-                if(self.dados[i][1] == 'int' ):
-                    self.dados[i][0]=int(self.dados[i][0])
-                elif(self.dados[i][1] == 'float'):
-                    self.dados[i][0]=float(self.dados[i][0])
-            except:
-                self.printar("Erro na Entrada de dados = {}".format(i))
-                error = True
-        self.printar("##################################")
-        if not error:
-            self.run_simulate(self.dados)
+            self.dados = {}
+            self.dados['Numero de Iteracoes']=[self.ent_num_iter.get(),'int']
+            self.dados['Dim'] = [self.ent_dim.get(),'int']
+            self.dados['CR']=[self.ent_CR.get(),'float']
+            self.dados['F']=[self.ent_F.get(),'float']
+            self.dados['Population Size']=[self.ent_pop_size.get(),'int']
+            self.dados['Upper Limit']=[self.ent_upper_lim.get(),'float']
+            self.dados['Lower Limit']=[self.ent_lower_lim.get(),'float']
+            error = False
+            self.comma_dot()
+            for i in self.dados.keys():
+                try:
+                    if(self.dados[i][1] == 'int' ):
+                        self.dados[i][0]=int(self.dados[i][0])
+                    elif(self.dados[i][1] == 'float'):
+                        self.dados[i][0]=float(self.dados[i][0])
+                except:
+                    self.printar("Erro na Entrada de dados = {}".format(i))
+                    error = True
+            self.printar("##################################")
+            if not error:
+                self.run_simulate(self.dados)
 
     def run_simulate(self,dados):
         self.TProgressbar1["value"] = 0            
@@ -492,8 +499,3 @@ def _on_shiftmouse(event, widget):
 
 if __name__ == '__main__':
     vp_start_gui()
-
-
-
-
-
