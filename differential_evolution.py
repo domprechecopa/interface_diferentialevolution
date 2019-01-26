@@ -35,7 +35,6 @@ class DifferentialEvolution(object):
         self.upper_limit = upper_limit
         self.lower_limit = lower_limit
         self.population = Population(dim=dim, num_points=self.population_size,upper_limit = self.upper_limit,lower_limit=self.lower_limit,  objective=self.func)
-
     def iterate(self):
         for ix in range(self.population.num_points):
             x = self.population.points[ix]
@@ -58,7 +57,7 @@ class DifferentialEvolution(object):
                 self.population.points[ix] = y
         self.iteration += 1
 
-    def simulate(self):
+    def simulate(self, runner):
         all_vals = []
         avg_vals = []
         pnt = get_best_point(self.population.points)
@@ -83,7 +82,7 @@ class DifferentialEvolution(object):
         plt.xlabel('Iterations')
         plt.ylabel('Objective Function Value')
         plt.title(self.func.func_name + ', ' + str(self.population.dim) + '-D')
-        plt.savefig("1.jpeg")
+        plt.savefig("graphics/graph_run_{}.jpeg".format(runner+1))
         
         pnt = get_best_point(self.population.points)
         self.printar("Final best value: " + str(pnt.z))

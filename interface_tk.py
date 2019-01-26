@@ -134,6 +134,13 @@ class Toplevel1:
         self.Label1_1.configure(borderwidth="2")
         self.Label1_1.configure(text='''Function''')
 
+        self.text_num_runs = Label(self.Input_Dados)
+        self.text_num_runs.place(relx=0.069, rely=0.812, height=22, width=86)
+        self.text_num_runs.configure(activebackground="#f9f9f9")
+        self.text_num_runs.configure(anchor='sw')
+        self.text_num_runs.configure(borderwidth="2")
+        self.text_num_runs.configure(text='''Number Runs''')
+
         self.Frame2 = Frame(top)
         self.Frame2.place(relx=0.203, rely=0.029, relheight=0.501
                 , relwidth=0.134)
@@ -202,6 +209,14 @@ class Toplevel1:
         self.select_funcao.configure(textvariable=interface_tk_support.combobox)
         self.select_funcao.configure(takefocus="")
 
+        self.ent_num_run = Spinbox(self.Frame2, from_=1.0, to=10.0)
+        self.ent_num_run.place(relx=0.08, rely=0.812, relheight=0.064
+                , relwidth=0.856)
+        self.ent_num_run.configure(activebackground="#f9f9f9")
+        self.ent_num_run.configure(background="white")
+        self.ent_num_run.configure(highlightbackground="black")
+        self.ent_num_run.configure(selectbackground="#c4c4c4")
+
         self.Button1 = Button(top, command = self.limpar_dados)
         self.Button1.place(relx=0.053, rely=0.537, height=30, width=104)
         self.Button1.configure(activebackground="#f9f9f9")
@@ -246,7 +261,7 @@ Discente: Ana Karina''')
         self.Button2.configure(text='''Limpar Histórico''')
 
         self.Canvas1 = Canvas(top)
-        self.Canvas1.place(relx=0.363, rely=0.029, relheight=0.524
+        self.Canvas1.place(relx=0.363, rely=0.029, relheight=0.567
                 , relwidth=0.589)
         self.Canvas1.configure(borderwidth="2")
         self.Canvas1.configure(relief='ridge')
@@ -254,12 +269,12 @@ Discente: Ana Karina''')
         self.Canvas1.configure(width=551)
 
         self.prev_grafico = Button(top,state = DISABLED,command=self.prev_grafico_action)
-        self.prev_grafico.place(relx=0.534, rely=0.552, height=30, width=45)
+        self.prev_grafico.place(relx=0.534, rely=0.595, height=30, width=45)
         self.prev_grafico.configure(activebackground="#f9f9f9")
         self.prev_grafico.configure(text='''< Prev''')
 
         self.next_grafico = Button(top, state = DISABLED,command=self.next_grafico_action)
-        self.next_grafico.place(relx=0.726, rely=0.552, height=30, width=45)
+        self.next_grafico.place(relx=0.737, rely=0.595, height=30, width=45)
         self.next_grafico.configure(activebackground="#f9f9f9")
         self.next_grafico.configure(text='''Next >''')
 
@@ -272,6 +287,7 @@ Discente: Ana Karina''')
             self.dados['Population Size']=[self.ent_pop_size.get(),'int']
             self.dados['Upper Limit']=[self.ent_upper_lim.get(),'float']
             self.dados['Lower Limit']=[self.ent_lower_lim.get(),'float']
+            self.dados['Num Runs'] = [self.ent_num_run.get(),'int']
             error = False
             self.comma_dot()
             for i in self.dados.keys():
@@ -289,7 +305,7 @@ Discente: Ana Karina''')
 
     def run_simulate(self,dados):
         self.TProgressbar1["value"] = 0            
-        number_of_runs = 5
+        number_of_runs = self.dados['Num Runs'][0]
         self.TProgressbar1["maximum"] = number_of_runs
         val = 0
         print_time = True
@@ -299,12 +315,12 @@ Discente: Ana Karina''')
             de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=self.mostrarprint, func=self.select_funcao.get(),
                         upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar)
-            val += de.simulate()
+            val += de.simulate(i)
             if print_time:
                 self.printar('')
                 self.printar ("Time taken: {}".format( datetime.datetime.now() - start))
                 self.printar('')
-            temp = Image.open('1.jpeg')
+            temp = Image.open("graphics/graph_run_{}.jpeg".format(i+1))
             
             self.img.append(temp.resize((558,360),Image.ANTIALIAS))
             self.TProgressbar1["value"] +=1
@@ -378,7 +394,6 @@ Discente: Ana Karina''')
         self.ent_upper_lim.delete(0, END)
         self.ent_lower_lim.delete(0,END)
         self.TProgressbar1['value'] = 0
-
 class AutoScroll(object):
     '''Configure the scrollbars for a widget.'''
 
