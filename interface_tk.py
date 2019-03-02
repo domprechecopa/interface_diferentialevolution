@@ -36,7 +36,7 @@ class Toplevel1:
         #########################
         self.grafico = 0
         self.mostrarprint = False
-        self.funcoes =   ['sphere', 'ackley', 'rosenbrock', 'rastrigin']
+        self.funcoes =   ['sphere', 'ackley', 'rosenbrock', 'rastrigin','griewank']
 ##############################
 
 

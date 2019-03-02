@@ -18,7 +18,6 @@ class Function:
             'ackley': self.ackley,
             'rosenbrock': self.rosenbrock,
             'rastrigin': self.rastrigin,
-            'griewank': self.griewank,
         }
         
         if func is None:
@@ -67,15 +66,3 @@ class Function:
             v += (x[i] ** 2) - (10 * np.cos(2 * np.pi * x[i]))
 
         return (10 * len(x)) + v
-    
-    def griewank(self, x):
-        v = 0
-
-        for i in range(len(x)):
-            v += (x[i] ** 2)/4000
-            
-        p = 1
-        for i in range(len(x)):
-            p *= (np.cos(x[i]/np.sqrt(i+1)))
-
-        return (1 + v - p)

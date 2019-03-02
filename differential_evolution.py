@@ -15,6 +15,7 @@ from helpers.population import Population
 from helpers.__init__ import get_best_point
 from helpers.test_functions import Function
 import matplotlib.pyplot as plt
+from helpers.strategy import Strategy
 #import seaborn as sns
 
 
@@ -23,6 +24,7 @@ class DifferentialEvolution(object):
         if func == '':
             func = None
         self.printar = printar
+        
         random.seed()
         self.print_status = print_status
         self.visualize = visualize
@@ -35,6 +37,7 @@ class DifferentialEvolution(object):
         self.upper_limit = upper_limit
         self.lower_limit = lower_limit
         self.population = Population(dim=dim, num_points=self.population_size,upper_limit = self.upper_limit,lower_limit=self.lower_limit,  objective=self.func)
+        self.strategy = Strategy(ppoints=list(self.population.points))
     def iterate(self):
         for ix in range(self.population.num_points):
             x = self.population.points[ix]
@@ -42,15 +45,10 @@ class DifferentialEvolution(object):
             while x == a or x == b or x == c:
                 [a, b, c] = random.sample(self.population.points, 3)
 
-            R = random.random() * x.dim
+            
             y = copy.deepcopy(x)
 
-            for iy in range(x.dim):
-                ri = random.random()
-
-                if ri < self.CR or iy == R:
-                    
-                    y.coords[iy] = a.coords[iy] + self.F * (b.coords[iy] - c.coords[iy])
+            self.strategy.strategy(x, y, a, b, c, self.CR,self.F)
 
             y.evaluate_point()
             if y.z < x.z:
@@ -87,6 +85,9 @@ class DifferentialEvolution(object):
         pnt = get_best_point(self.population.points)
         self.printar("Final best value: " + str(pnt.z))
         return pnt.z
+
+
+
 
 
 #if __name__ == '__main__':
