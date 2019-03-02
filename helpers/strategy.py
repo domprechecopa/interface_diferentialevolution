@@ -1,11 +1,11 @@
 import random
 class Strategy:
 
-    def __init__(self, select = 'best1bin', ppoints = None):
+    def __init__(self, select = 'best2bin', ppoints = None):
         strategy = {
             'rand1bin': self.rand1bin,
             'best1bin': self.best1bin,
-            # 'best2bin': self.best2bin,
+            'best2bin': self.best2bin,
             # 'rand2bin': self.rand2bin,
             # 'randbest1bin': self.randbest1bin,
             # 'rand1exp' : self.rand1exp,
@@ -18,7 +18,7 @@ class Strategy:
         self.strategy = strategy[select]
         self.points = ppoints
 
-    def rand1bin(self,x, y, a, b, c, CR,F):
+    def rand1bin(self,x, y, a, b, c, d, CR,F):
         R = random.random() * x.dim
         for iy in range(x.dim):
             ri = random.random()
@@ -26,15 +26,23 @@ class Strategy:
             if ri < CR or iy == R:
                 
                 y.coords[iy] = a.coords[iy] + F * (b.coords[iy] - c.coords[iy])
-    def best1bin(self,x, y, a, b, c, CR,F, ppoints = None):
+    def best1bin(self,x, y, a, b, c, d, CR,F, ppoints = None):
         R = random.random() * x.dim
         for iy in range(x.dim):
             ri = random.random()
 
             if ri < CR or iy == R:
                 
-                y.coords[iy] = self.points[iy].best() + F * (b.coords[iy] - c.coords[iy])
+                y.coords[iy] = self.points[iy].best() + F * (a.coords[iy] - b.coords[iy])
+    
+    def best2bin(self,x, y, a, b, c, d, CR,F, ppoints = None):
+        R = random.random() * x.dim
+        for iy in range(x.dim):
+            ri = random.random()
 
+            if ri < CR or iy == R:
+                
+                y.coords[iy] = self.points[iy].best() + F * (a.coords[iy] + b.coords[iy] - c.coords[iy] - d.coords[iy])
     
 
     
