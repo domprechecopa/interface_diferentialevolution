@@ -57,7 +57,7 @@ class Strategy:
 
             if ri < CR or iy == R:
                 
-                y.coords[iy] = x1[e].coords[iy] + F * (x[a].coords[iy] + x1[b].coords[iy] - x1[c].coords[iy] -  x1[d].coords[iy]  )
+                y.coords[iy] = x1[e].coords[iy] + F * (x1[a].coords[iy] + x1[b].coords[iy] - x1[c].coords[iy] -  x1[d].coords[iy]  )
     
     def randbest1bin(self,x, y, x1 , CR,F):
         [a,b,c,d,e] = ['a','b','c','d','e']
@@ -86,7 +86,7 @@ class Strategy:
 
             if ri < CR or iy < x.dim:
                 
-                y.coords[iy] = x1[e].coords[iy] + F * (x[a].coords[iy] + x1[b].coords[iy] - x1[c].coords[iy] -  x1[d].coords[iy]  )
+                y.coords[iy] = x1[e].coords[iy] + F * (x1[a].coords[iy] + x1[b].coords[iy] - x1[c].coords[iy] -  x1[d].coords[iy]  )
    
     def best1exp(self,x, y, x1, CR,F, ppoints = None):
         [a,b,c,d,e] = ['a','b','c','d','e']
