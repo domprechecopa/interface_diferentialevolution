@@ -25,4 +25,4 @@ class Point:
         self.z = self.objective.evaluate(self.coords)
     
     def best(self):
-        return float(np.max(self.coords))
+        return float(np.min(self.coords))
