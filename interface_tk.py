@@ -216,11 +216,13 @@ class Toplevel1:
         self.select_funcao.place(relx=0.08, rely=0.725, relheight=0.058
                 , relwidth=0.856)
         self.select_funcao.configure(takefocus="")
+        self.select_funcao.current(0)
 
         self.select_strategy = ttk.Combobox(self.Frame2, values = self.strategys)
         self.select_strategy.place(relx=0.08, rely=0.899, relheight=0.058
                 , relwidth=0.856)
         self.select_strategy.configure(takefocus="")
+        self.select_strategy.current(0)
 
         self.ent_num_run = Spinbox(self.Frame2, from_=1.0, to=10.0)
         self.ent_num_run.place(relx=0.08, rely=0.812, relheight=0.064
@@ -291,6 +293,11 @@ Discente: Ana Karina''')
         self.next_grafico.configure(activebackground="#f9f9f9")
         self.next_grafico.configure(text='''Next >''')
 
+#############BUTTON TEST #########################
+        self.Test_Button = Button(top, command = self.test_dados)
+        self.Test_Button.place(relx=0.705, rely=0.914, height=27, width=112)
+        self.Test_Button.configure(text='''Don't Touch me''')
+##################################################
     def executar(self):
             self.dados = {}
             self.dados['Numero de Iteracoes']=[self.ent_num_iter.get(),'int']
@@ -407,6 +414,23 @@ Discente: Ana Karina''')
         self.ent_upper_lim.delete(0, END)
         self.ent_lower_lim.delete(0,END)
         self.TProgressbar1['value'] = 0
+        self.select_strategy.current(0)
+        self.select_funcao.current(0)
+
+    ############## TEST DADOS ###################
+    def test_dados(self):
+       # num_iterations=200, dim=10, CR=0.4, F=0.48, population_size=75, print_status=False, func='ackley',upper_limit=5.12,lower_limit=-5.12)
+        self.limpar_dados()
+        self.ent_num_iter.insert(INSERT, '100')
+        self.ent_dim.insert(INSERT, '10')
+        self.ent_CR.insert(INSERT, '0,4')
+        self.ent_F.insert(INSERT, '0,48')
+        self.ent_pop_size.insert(INSERT, '75')
+        self.ent_upper_lim.insert(INSERT, '5,12')
+        self.ent_lower_lim.insert(INSERT, '-5,12')
+        self.select_strategy.current(0)
+        self.select_funcao.current(1)
+
 class AutoScroll(object):
     '''Configure the scrollbars for a widget.'''
 
