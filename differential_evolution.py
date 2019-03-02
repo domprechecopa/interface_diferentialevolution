@@ -41,14 +41,14 @@ class DifferentialEvolution(object):
     def iterate(self):
         for ix in range(self.population.num_points):
             x = self.population.points[ix]
-            [a, b, c, d] = random.sample(self.population.points, 4)
+            [a, b, c, d, e] = random.sample(self.population.points, 5)
             while x == a or x == b or x == c or x == d:
-                [a, b, c, d] = random.sample(self.population.points, 4)
+                [a, b, c, d, e] = random.sample(self.population.points, 5)
 
-            
+            x1 = {'a' : a, 'b' : b, 'c' : c, 'd' : d, 'e' : e}
             y = copy.deepcopy(x)
 
-            self.strategy.strategy(x, y, a, b, c, d, self.CR,self.F)
+            self.strategy.strategy(x, y, x1, self.CR,self.F)
 
             y.evaluate_point()
             if y.z < x.z:
