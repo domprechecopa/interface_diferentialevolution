@@ -5,7 +5,7 @@ class Strategy:
         strategy = {
             'rand1bin': self.rand1bin,
             'best1bin': self.best1bin,
-            'best2bin': self.best2bin,
+            # 'best2bin': self.best2bin,
             # 'rand2bin': self.rand2bin,
             # 'randbest1bin': self.randbest1bin,
             # 'rand1exp' : self.rand1exp,
@@ -34,6 +34,8 @@ class Strategy:
             if ri < CR or iy == R:
                 
                 y.coords[iy] = self.points[iy].best() + F * (b.coords[iy] - c.coords[iy])
+
+    
 
     
 
