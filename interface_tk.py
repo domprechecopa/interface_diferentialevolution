@@ -37,6 +37,8 @@ class Toplevel1:
         self.grafico = 0
         self.mostrarprint = False
         self.funcoes =   ['sphere', 'ackley', 'rosenbrock', 'rastrigin','griewank']
+        self.strategys = ['rand1bin','best1bin', 'best2bin', 'rand2bin','randbest1bin',
+                          'rand1exp','best1exp','best2exp','rand2exp' ,'randbest1exp']
 ##############################
 
 
@@ -141,6 +143,13 @@ class Toplevel1:
         self.text_num_runs.configure(borderwidth="2")
         self.text_num_runs.configure(text='''Number Runs''')
 
+        self.text_Strategy = Label(self.Input_Dados)
+        self.text_Strategy.place(relx=0.069, rely=0.899, height=22, width=86)
+        self.text_Strategy.configure(activebackground="#f9f9f9")
+        self.text_Strategy.configure(anchor='sw')
+        self.text_Strategy.configure(borderwidth="2")
+        self.text_Strategy.configure(text='''Strategy''')
+
         self.Frame2 = Frame(top)
         self.Frame2.place(relx=0.203, rely=0.029, relheight=0.501
                 , relwidth=0.134)
@@ -206,8 +215,12 @@ class Toplevel1:
         self.select_funcao = ttk.Combobox(self.Frame2,values = self.funcoes)
         self.select_funcao.place(relx=0.08, rely=0.725, relheight=0.058
                 , relwidth=0.856)
-        self.select_funcao.configure(textvariable=interface_tk_support.combobox)
         self.select_funcao.configure(takefocus="")
+
+        self.select_strategy = ttk.Combobox(self.Frame2, values = self.strategys)
+        self.select_strategy.place(relx=0.08, rely=0.899, relheight=0.058
+                , relwidth=0.856)
+        self.select_strategy.configure(takefocus="")
 
         self.ent_num_run = Spinbox(self.Frame2, from_=1.0, to=10.0)
         self.ent_num_run.place(relx=0.08, rely=0.812, relheight=0.064
@@ -314,7 +327,7 @@ Discente: Ana Karina''')
             start = datetime.datetime.now()
             de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=self.mostrarprint, func=self.select_funcao.get(),
-                        upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar)
+                        upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar, selstrategy = self.select_strategy.get())
             val += de.simulate(i)
             if print_time:
                 self.printar('')

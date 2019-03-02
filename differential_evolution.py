@@ -20,7 +20,7 @@ from helpers.strategy import Strategy
 
 
 class DifferentialEvolution(object):
-    def __init__(self, num_iterations=10, CR=0.4, F=0.48, dim=2, population_size=10, print_status=False, visualize=False, func=None,upper_limit=10,lower_limit=-10,printar = None):
+    def __init__(self, num_iterations=10, CR=0.4, F=0.48, dim=2, population_size=10, print_status=False, visualize=False, func=None,upper_limit=10,lower_limit=-10,printar = None, selstrategy = None):
         if func == '':
             func = None
         self.printar = printar
@@ -37,7 +37,7 @@ class DifferentialEvolution(object):
         self.upper_limit = upper_limit
         self.lower_limit = lower_limit
         self.population = Population(dim=dim, num_points=self.population_size,upper_limit = self.upper_limit,lower_limit=self.lower_limit,  objective=self.func)
-        self.strategy = Strategy(ppoints=self.population.points, cost = self.population.cost)
+        self.strategy = Strategy(select = selstrategy, ppoints=self.population.points, cost = self.population.cost)
     def iterate(self):
         for ix in range(self.population.num_points):
             x = self.population.points[ix]

@@ -12,7 +12,7 @@ class Strategy:
             'best1exp' : self.best1exp,
             'best2exp' : self.best2exp,
             'rand2exp' : self.rand2exp,
-            'randbest1exp' : self.randbest2exp
+            'randbest1exp' : self.randbest1exp
         }
 
         self.strategy = strategy[select]
@@ -78,6 +78,16 @@ class Strategy:
             if ri < CR or iy < x.dim:
                 y.coords[iy] = x1[c].coords[iy] + F * (x1[a].coords[iy] - x1[b].coords[iy])
 
+    def rand2exp(self,x, y, x1 , CR,F):
+        [a,b,c,d,e] = ['a','b','c','d','e']
+        R = random.random() * x.dim
+        for iy in range(x.dim):
+            ri = random.random()
+
+            if ri < CR or iy < x.dim:
+                
+                y.coords[iy] = x1[e].coords[iy] + F * (x[a].coords[iy] + x1[b].coords[iy] - x1[c].coords[iy] -  x1[d].coords[iy]  )
+   
     def best1exp(self,x, y, x1, CR,F, ppoints = None):
         [a,b,c,d,e] = ['a','b','c','d','e']
         R = random.random() * x.dim
