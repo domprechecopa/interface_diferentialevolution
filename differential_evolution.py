@@ -37,7 +37,7 @@ class DifferentialEvolution(object):
         self.upper_limit = upper_limit
         self.lower_limit = lower_limit
         self.population = Population(dim=dim, num_points=self.population_size,upper_limit = self.upper_limit,lower_limit=self.lower_limit,  objective=self.func)
-        self.strategy = Strategy(ppoints=list(self.population.points))
+        self.strategy = Strategy(ppoints=self.population.points, cost = self.population.cost)
     def iterate(self):
         for ix in range(self.population.num_points):
             x = self.population.points[ix]
