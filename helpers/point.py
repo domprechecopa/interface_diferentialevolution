@@ -2,15 +2,10 @@
 """
 Created on Wed Jan 16 11:39:54 2019
 
-@author: cleym
+@author: LABMC
 """
-
-# helpers/point.py
-
 import numpy as np
 import scipy as sp
-
-
 class Point:
     def __init__(self, dim=2, upper_limit=10, lower_limit=-10, objective=None):
         self.dim = dim
@@ -28,3 +23,6 @@ class Point:
     def evaluate_point(self):
         # self.z = evaluate(self.coords)
         self.z = self.objective.evaluate(self.coords)
+    
+    def best(self):
+        return float(np.max(self.coords))

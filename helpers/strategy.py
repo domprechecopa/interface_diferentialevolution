@@ -5,7 +5,7 @@ class Strategy:
         strategy = {
             'rand1bin': self.rand1bin,
             'best1bin': self.best1bin,
-            # 'best2bin': self.best2bin,
+            'best2bin': self.best2bin,
             # 'rand2bin': self.rand2bin,
             # 'randbest1bin': self.randbest1bin,
             # 'rand1exp' : self.rand1exp,
@@ -16,7 +16,7 @@ class Strategy:
         }
 
         self.strategy = strategy[select]
-        self.best = max(ppoints)
+        self.points = ppoints
 
     def rand1bin(self,x, y, a, b, c, CR,F):
         R = random.random() * x.dim
@@ -26,7 +26,6 @@ class Strategy:
             if ri < CR or iy == R:
                 
                 y.coords[iy] = a.coords[iy] + F * (b.coords[iy] - c.coords[iy])
-
     def best1bin(self,x, y, a, b, c, CR,F, ppoints = None):
         R = random.random() * x.dim
         for iy in range(x.dim):
@@ -34,5 +33,7 @@ class Strategy:
 
             if ri < CR or iy == R:
                 
-                y.coords[iy] = self.best + F * (b.coords[iy] - c.coords[iy])
+                y.coords[iy] = self.points[iy].best() + F * (b.coords[iy] - c.coords[iy])
+
+    
 
