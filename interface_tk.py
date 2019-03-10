@@ -374,6 +374,7 @@ Discente: Ana Karina''')
     def printar(self,texto):
         self.Scrolledlistbox1.insert(END,texto)
         self.Scrolledlistbox1.see('end')
+        self.top.update_idletasks()
     def next_grafico_action(self):
         self.grafico+=1
         self.grafico_interface(self.grafico)
