@@ -4,3 +4,4 @@ interface_tk.tcl.*
 interface_tk_support.py.*
 helpers/__pycache__/*
 graphics/*.jpeg
+historico.log
