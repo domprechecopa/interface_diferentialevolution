@@ -6,6 +6,7 @@ from differential_evolution import DifferentialEvolution
 from helpers import interface_tk_support
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
+from PIL import Image
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
@@ -45,8 +46,10 @@ class Toplevel1:
                           'rand1exp','best1exp','best2exp','rand2exp' ,'randbest1exp']
         self.all_vals = []
         self.avg_vals = []
+        self.imgfuncoes = []
         #########################
-
+        for i in self.funcoes:
+            self.imgfuncoes.append(Image.open("graphics/"+i + '.png').resize((558,360),Image.ANTIALIAS))
 
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
         _fgcolor = '#000000'  # X11 color: 'black'
