@@ -226,12 +226,10 @@ class Toplevel1:
         self.select_funcao.configure(takefocus="")
         self.select_funcao.current(0)
 
-        self.style.map('TRadiobutton',background=
-              [('selected', _bgcolor), ('active', _ana2color)])
-        self.ShowFuncao = ttk.Radiobutton(self.Frame2, command=self.plotarfuncao)
-        self.ShowFuncao.place(relx=0.86, rely=0.725, relwidth=0.14
-                , relheight=0.0, height=19)
-        self.ShowFuncao.configure(takefocus="")
+        self.ShowFuncao = Button(self.Frame2, command = self.plotarfuncao)
+        self.ShowFuncao.place(relx=0.88, rely=0.725, height=17, width=14)
+        self.ShowFuncao.configure(width=14)
+        self.ShowFuncao.configure(text='>')
 
         self.select_strategy = ttk.Combobox(self.Frame2, values = self.strategys)
         self.select_strategy.place(relx=0.08, rely=0.899, relheight=0.058
