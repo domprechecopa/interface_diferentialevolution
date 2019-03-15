@@ -39,7 +39,6 @@ class Toplevel1:
         with open('historico.log', 'w') as log:
             log.write('#'*10 + 'Diferential Evolution' + '#'*10 + '\n\n')
         self.fig = Figure(figsize=(5, 4), dpi=100)
-        self.grafico = 0
         self.mostrarprint = False
         self.funcoes =   ['sphere', 'ackley', 'rosenbrock', 'rastrigin','griewank']
         self.strategys = ['rand1bin','best1bin', 'best2bin', 'rand2bin','randbest1bin',
@@ -223,7 +222,7 @@ class Toplevel1:
 
         self.select_funcao = ttk.Combobox(self.Frame2,values = self.funcoes)
         self.select_funcao.place(relx=0.08, rely=0.725, relheight=0.058
-                 , relwidth=0.776)
+                , relwidth=0.780)
         self.select_funcao.configure(takefocus="")
         self.select_funcao.current(0)
 
