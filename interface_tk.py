@@ -161,11 +161,11 @@ class Toplevel1:
 
         self.Frame2 = Frame(top)
         self.Frame2.place(relx=0.203, rely=0.029, relheight=0.501
-                , relwidth=0.134)
+                , relwidth=0.136)
         self.Frame2.configure(relief='groove')
         self.Frame2.configure(borderwidth="2")
         self.Frame2.configure(relief='groove')
-        self.Frame2.configure(width=125)
+        self.Frame2.configure(width=126)
 
         self.ent_num_iter = Entry(self.Frame2)
         self.ent_num_iter.place(relx=0.08, rely=0.029, height=22, relwidth=0.848)
@@ -223,9 +223,16 @@ class Toplevel1:
 
         self.select_funcao = ttk.Combobox(self.Frame2,values = self.funcoes)
         self.select_funcao.place(relx=0.08, rely=0.725, relheight=0.058
-                , relwidth=0.856)
+                 , relwidth=0.776)
         self.select_funcao.configure(takefocus="")
         self.select_funcao.current(0)
+
+        self.style.map('TRadiobutton',background=
+              [('selected', _bgcolor), ('active', _ana2color)])
+        self.ShowFuncao = ttk.Radiobutton(self.Frame2, command=self.plotarfuncao)
+        self.ShowFuncao.place(relx=0.86, rely=0.725, relwidth=0.14
+                , relheight=0.0, height=19)
+        self.ShowFuncao.configure(takefocus="")
 
         self.select_strategy = ttk.Combobox(self.Frame2, values = self.strategys)
         self.select_strategy.place(relx=0.08, rely=0.899, relheight=0.058
@@ -377,8 +384,13 @@ Discente: Ana Karina''')
         try:
             self.grafico_interface(indice=0)
         except:
-            self.printar("Erro ao plotar!")
+            self.printar("Error ao plotar a funcao!")
 
+    def plotarfuncao(self):
+        self.fig.clear()
+        self.fig.legend(title=self.select_funcao.get())
+        self.fig.figimage(self.imgfuncoes[self.funcoes.index(self.select_funcao.get())])
+        self.Canvas1.draw()
     def grafico_interface(self, indice=0):
             if indice == None or len(self.all_vals)-1==0:
                 self.prev_grafico['state']  = DISABLED
