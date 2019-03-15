@@ -4,7 +4,8 @@ from tkinter import *
 from tkinter import ttk
 from differential_evolution import DifferentialEvolution
 from helpers import interface_tk_support
-from PIL import ImageTk,Image 
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+from matplotlib.figure import Figure
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
@@ -36,12 +37,14 @@ class Toplevel1:
         #########################
         with open('historico.log', 'w') as log:
             log.write('#'*10 + 'Diferential Evolution' + '#'*10 + '\n\n')
-        
+        self.fig = Figure(figsize=(5, 4), dpi=100)
         self.grafico = 0
         self.mostrarprint = False
         self.funcoes =   ['sphere', 'ackley', 'rosenbrock', 'rastrigin','griewank']
         self.strategys = ['rand1bin','best1bin', 'best2bin', 'rand2bin','randbest1bin',
                           'rand1exp','best1exp','best2exp','rand2exp' ,'randbest1exp']
+        self.all_vals = []
+        self.avg_vals = []
         #########################
 
 
@@ -278,13 +281,19 @@ Discente: Ana Karina''')
         self.Button2.configure(activebackground="#f9f9f9")
         self.Button2.configure(text='''Limpar Histórico''')
 
-        self.Canvas1 = Canvas(top)
-        self.Canvas1.place(relx=0.363, rely=0.029, relheight=0.567
+        self.Canvas1 = FigureCanvasTkAgg(self.fig,master = top)
+        self.Canvas1.get_tk_widget().place(relx=0.363, rely=0.029, relheight=0.567
                 , relwidth=0.589)
-        self.Canvas1.configure(borderwidth="2")
-        self.Canvas1.configure(relief='ridge')
-        self.Canvas1.configure(selectbackground="#c4c4c4")
-        self.Canvas1.configure(width=551)
+        self.Canvas1.get_tk_widget().configure(borderwidth="2")
+        self.Canvas1.get_tk_widget().configure(relief='ridge')
+        self.Canvas1.get_tk_widget().configure(selectbackground="#c4c4c4")
+        self.Canvas1.get_tk_widget().configure(width=551)
+
+        self.toolbar = NavigationToolbar2Tk(self.Canvas1, top)
+        self.toolbar.update()
+        self.Canvas1._tkcanvas.place(relx=0.363, rely=0.029, relheight=0.567
+                , relwidth=0.589)
+
 
         self.prev_grafico = Button(top,state = DISABLED,command=self.prev_grafico_action)
         self.prev_grafico.place(relx=0.534, rely=0.595, height=30, width=45)
@@ -327,6 +336,8 @@ Discente: Ana Karina''')
                 self.run_simulate(self.dados)
 
     def run_simulate(self,dados):
+        self.all_vals = []
+        self.avg_vals = []
         self.TProgressbar1["value"] = 0            
         number_of_runs = self.dados['Num Runs'][0]
         self.TProgressbar1["maximum"] = number_of_runs
@@ -338,41 +349,45 @@ Discente: Ana Karina''')
             de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=self.mostrarprint, func=self.select_funcao.get(),
                         upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar, selstrategy = self.select_strategy.get())
-            val += de.simulate(i)
+            val_temp, all_vals, avg_vals = de.simulate(i)
+            val += val_temp
+            self.all_vals.append(all_vals)
+            self.avg_vals.append(avg_vals)
             if print_time:
                 self.printar('')
                 self.printar ("Time taken: {}".format( datetime.datetime.now() - start))
                 self.printar('')
-            temp = Image.open("graphics/graph_run_{}.jpeg".format(i+1))
-            
-            self.img.append(temp.resize((558,360),Image.ANTIALIAS))
             self.TProgressbar1["value"] +=1
             self.top.update_idletasks()
-
-            
         self.printar ('-'*80)
         self.printar('')
         self.printar ("Final average of all runs: {}".format( val / number_of_runs))
         
         
     def grafico_interface(self, indice=0):
-            if indice == None or len(self.img)-1==0:
+            if indice == None or len(self.all_vals)-1==0:
                 self.prev_grafico['state']  = DISABLED
                 self.next_grafico['state']  = DISABLED
             elif indice == 0:
                 self.prev_grafico['state'] = DISABLED
                 self.next_grafico['state'] = NORMAL
-            elif indice == len(self.img)-1:
+            elif indice == len(self.all_vals)-1:
                 self.prev_grafico['state']  = NORMAL
                 self.next_grafico['state']  = DISABLED
             else:
                 self.prev_grafico['state'] = NORMAL
                 self.next_grafico['state']  = NORMAL
 
-            img = ImageTk.PhotoImage(self.img[indice])
+            self.fig.clear()
+            a = self.fig.add_subplot(111)
+            a.plot(self.all_vals[indice], 'r', label='Best')
+            a.plot(self.avg_vals[indice], 'g', label='Average')
+            a.grid(True, linestyle='-.')
+            a.legend()
+            # a.xlabel('Iterations')
+            # a.ylabel('Objective Function Value')
+            self.Canvas1.draw()
             self.printar("Grafico = {}".format(indice+1))
-            self.Canvas1.create_image(0,0, anchor=NW, image=img)  
-            self.Canvas1.image = img
             self.grafico = indice
     def printar(self,texto):
         self.Scrolledlistbox1.insert(END,texto)
