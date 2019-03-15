@@ -249,7 +249,7 @@ class Toplevel1:
         self.Button3.configure(state='active')
         self.Button3.configure(text='''Executar''')
 
-        self.Button4 = Button(top, command = self.grafico_interface)
+        self.Button4 = Button(top, command = self.button_plot)
         self.Button4.place(relx=0.267, rely=0.537, height=30, width=60)
         self.Button4.configure(activebackground="#f9f9f9")
         self.Button4.configure(text='''Plot''')
@@ -289,19 +289,13 @@ Discente: Ana Karina''')
         self.Canvas1.get_tk_widget().configure(selectbackground="#c4c4c4")
         self.Canvas1.get_tk_widget().configure(width=551)
 
-        self.toolbar = NavigationToolbar2Tk(self.Canvas1, top)
-        self.toolbar.update()
-        self.Canvas1._tkcanvas.place(relx=0.363, rely=0.029, relheight=0.567
-                , relwidth=0.589)
-
-
         self.prev_grafico = Button(top,state = DISABLED,command=self.prev_grafico_action)
-        self.prev_grafico.place(relx=0.534, rely=0.595, height=30, width=45)
+        self.prev_grafico.place(relx=0.363, rely=0.595, height=30, width=45)
         self.prev_grafico.configure(activebackground="#f9f9f9")
         self.prev_grafico.configure(text='''< Prev''')
 
         self.next_grafico = Button(top, state = DISABLED,command=self.next_grafico_action)
-        self.next_grafico.place(relx=0.737, rely=0.595, height=30, width=45)
+        self.next_grafico.place(relx=0.908, rely=0.595, height=30, width=45)
         self.next_grafico.configure(activebackground="#f9f9f9")
         self.next_grafico.configure(text='''Next >''')
 
@@ -310,6 +304,19 @@ Discente: Ana Karina''')
         self.Test_Button.place(relx=0.705, rely=0.914, height=27, width=112)
         self.Test_Button.configure(text='''Don't Touch me''')
 ##################################################
+
+        self.NavegateFrame = Frame(top)
+        self.NavegateFrame.place(relx=0.417, rely=0.595, relheight=0.058
+                , relwidth=0.486)
+        self.NavegateFrame.configure(relief='groove')
+        self.NavegateFrame.configure(borderwidth="2")
+        self.NavegateFrame.configure(relief='groove')
+        self.NavegateFrame.configure(width=455)
+
+        self.toolbar = NavigationToolbar2Tk(self.Canvas1, self.NavegateFrame)
+        self.toolbar.update()
+        self.Canvas1._tkcanvas.place(relx=0.363, rely=0.029, relheight=0.567
+                , relwidth=0.589)
     def executar(self):
             self.dados = {}
             self.dados['Numero de Iteracoes']=[self.ent_num_iter.get(),'int']
@@ -363,7 +370,12 @@ Discente: Ana Karina''')
         self.printar('')
         self.printar ("Final average of all runs: {}".format( val / number_of_runs))
         
-        
+    def button_plot(self):
+        try:
+            self.grafico_interface(indice=0)
+        except:
+            self.printar("Erro ao plotar!")
+
     def grafico_interface(self, indice=0):
             if indice == None or len(self.all_vals)-1==0:
                 self.prev_grafico['state']  = DISABLED
