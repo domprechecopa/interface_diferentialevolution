@@ -34,7 +34,9 @@ def destroy_Toplevel1():
 class Toplevel1:
     def __init__(self, top=None):
         #########################
-        self.log = open('historico.log', 'w')
+        with open('historico.log', 'w') as log:
+            log.write('#'*10 + 'Diferential Evolution' + '#'*10 + '\n\n')
+        
         self.grafico = 0
         self.mostrarprint = False
         self.funcoes =   ['sphere', 'ackley', 'rosenbrock', 'rastrigin','griewank']
@@ -376,7 +378,8 @@ Discente: Ana Karina''')
         self.Scrolledlistbox1.insert(END,texto)
         self.Scrolledlistbox1.see('end')
         self.top.update_idletasks()
-        self.log.write('{}\n'.format(texto))
+        with open('historico.log', 'a') as log:
+            log.write('{}\n'.format(texto))
     def next_grafico_action(self):
         self.grafico+=1
         self.grafico_interface(self.grafico)
