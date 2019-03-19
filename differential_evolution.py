@@ -71,16 +71,7 @@ class DifferentialEvolution(object):
             avg_vals.append(self.population.get_average_objective())
             if self.visualize == True and self.iteration%2==0:
                 self.population.get_visualization()
-        # sns.figure(0)
-        # plt.figure()
-        # plt.plot(all_vals, 'r', label='Best')
-        # plt.plot(avg_vals, 'g', label='Average')
-        # plt.grid(True, linestyle='-.')
-        # plt.legend()
-        # plt.xlabel('Iterations')
-        # plt.ylabel('Objective Function Value')
-        # plt.title(self.func.func_name + ', ' + str(self.population.dim) + '-D')
-        # plt.savefig("graphics/graph_run_{}.jpeg".format(runner+1))
+
         
         pnt = get_best_point(self.population.points)
         self.printar("Final best value: " + str(pnt.z))
@@ -88,19 +79,3 @@ class DifferentialEvolution(object):
 
 
 
-
-
-#if __name__ == '__main__':
-#    number_of_runs = 1
-#    val = 0
-#    print_time = True
-#
-#    for i in range(number_of_runs):
-#        start = time.clock()
-#        de = DifferentialEvolution(num_iterations=500, dim=50, CR=0.4, F=0.48, population_size=75, print_status=False, func='rastrigin')
-#        val += de.simulate()
-#        if print_time:
-#            print("")
-#            print(time.clock() - start)
-#
-#    print(("Final average of all runs: "), (val / number_of_runs))
