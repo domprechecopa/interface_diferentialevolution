@@ -1,7 +1,8 @@
 import random
+from helpers import get_best_point
 class Strategy:
 
-    def __init__(self, select = 'randbest1bin', ppoints = None, cost = None):
+    def __init__(self, select = 'randbest1bin'):
         strategy = {
             'rand1bin': self.rand1bin,
             'best1bin': self.best1bin,
@@ -16,10 +17,8 @@ class Strategy:
         }
 
         self.strategy = strategy[select]
-        self.points = ppoints
-        self.indexbest = cost.index(min(cost))
 
-    def rand1bin(self,x, y, x1, CR,F):
+    def rand1bin(self,x, y, x1, CR,F,ppoints=None):
         [a,b,c,d,e] = ['a','b','c','d','e']
         R = random.random() * x.dim
         for iy in range(x.dim):
@@ -37,7 +36,7 @@ class Strategy:
 
             if ri < CR or iy == R:
                 
-                y.coords[iy] = self.points[self.indexbest].coords[iy] + F * (x1[a].coords[iy] - x1[b].coords[iy])
+                y.coords[iy] = get_best_point(ppoints).coords[iy] + F * (x1[a].coords[iy] - x1[b].coords[iy])
     
     def best2bin(self,x, y, x1 , CR,F, ppoints = None):
         [a,b,c,d,e] = ['a','b','c','d','e']
@@ -47,9 +46,10 @@ class Strategy:
 
             if ri < CR or iy == R:
                 
-                y.coords[iy] = self.points[self.indexbest].coords[iy] + F * (x1[a].coords[iy] + x1[b].coords[iy] - x1[c].coords[iy] - x1[d].coords[iy])
+                y.coords[iy] = get_best_point(ppoints).coords[iy] + F * (
+                    x1[a].coords[iy] + x1[b].coords[iy] - x1[c].coords[iy] - x1[d].coords[iy])
     
-    def rand2bin(self,x, y, x1 , CR,F):
+    def rand2bin(self,x, y, x1 , CR,F, ppoints = None):
         [a,b,c,d,e] = ['a','b','c','d','e']
         R = random.random() * x.dim
         for iy in range(x.dim):
@@ -59,7 +59,7 @@ class Strategy:
                 
                 y.coords[iy] = x1[e].coords[iy] + F * (x1[a].coords[iy] + x1[b].coords[iy] - x1[c].coords[iy] -  x1[d].coords[iy]  )
     
-    def randbest1bin(self,x, y, x1 , CR,F):
+    def randbest1bin(self,x, y, x1 , CR,F, ppoints = None):
         [a,b,c,d,e] = ['a','b','c','d','e']
         R = random.random() * x.dim
         for iy in range(x.dim):
@@ -69,7 +69,7 @@ class Strategy:
                 
                 y.coords[iy] = y.coords[iy] + F*(self.points[self.indexbest].coords[iy] - y.coords[iy]) + F * (x1[a].coords[iy] + x1[b].coords[iy])
 
-    def rand1exp(self,x, y, x1 , CR,F):
+    def rand1exp(self,x, y, x1 , CR,F, ppoints = None):
         [a,b,c,d,e] = ['a','b','c','d','e']
         R = random.random() * x.dim
         for iy in range(x.dim):
@@ -78,7 +78,7 @@ class Strategy:
             if ri < CR or iy < x.dim:
                 y.coords[iy] = x1[c].coords[iy] + F * (x1[a].coords[iy] - x1[b].coords[iy])
 
-    def rand2exp(self,x, y, x1 , CR,F):
+    def rand2exp(self,x, y, x1 , CR,F, ppoints = None):
         [a,b,c,d,e] = ['a','b','c','d','e']
         R = random.random() * x.dim
         for iy in range(x.dim):
@@ -95,7 +95,8 @@ class Strategy:
             ri = random.random()
 
             if ri < CR or iy < x.dim:
-                y.coords[iy] = self.points[self.indexbest].coords[iy] + F * (x1[a].coords[iy] - x1[b].coords[iy])
+                y.coords[iy] = get_best_point(
+                    ppoints).coords[iy] + F * (x1[a].coords[iy] - x1[b].coords[iy])
     
 
     def best2exp(self,x, y, x1 , CR,F, ppoints = None):
@@ -106,9 +107,10 @@ class Strategy:
 
             if ri < CR or iy < x.dim:
                 
-                y.coords[iy] = self.points[self.indexbest].coords[iy] + F * (x1[a].coords[iy] + x1[b].coords[iy] - x1[c].coords[iy] - x1[d].coords[iy])
+                y.coords[iy] = get_best_point(ppoints).coords[iy] + F * (
+                    x1[a].coords[iy] + x1[b].coords[iy] - x1[c].coords[iy] - x1[d].coords[iy])
     
-    def randbest1exp(self,x, y, x1 , CR,F):
+    def randbest1exp(self,x, y, x1 , CR,F, ppoints= None):
         [a,b,c,d,e] = ['a','b','c','d','e']
         R = random.random() * x.dim
         for iy in range(x.dim):
@@ -116,4 +118,4 @@ class Strategy:
 
             if ri < CR or iy < x.dim:
                 
-                y.coords[iy] = y.coords[iy] + F*(self.points[self.indexbest].coords[iy] - y.coords[iy]) + F * (x1[a].coords[iy] + x1[b].coords[iy])
+                y.coords[iy] = y.coords[iy] + F*(get_best_point(ppoints).coords[iy] - y.coords[iy]) + F * (x1[a].coords[iy] + x1[b].coords[iy])

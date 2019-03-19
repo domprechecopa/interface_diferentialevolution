@@ -16,7 +16,6 @@ from helpers.__init__ import get_best_point
 from helpers.test_functions import Function
 import matplotlib.pyplot as plt
 from helpers.strategy import Strategy
-#import seaborn as sns
 
 
 class DifferentialEvolution(object):
@@ -37,7 +36,7 @@ class DifferentialEvolution(object):
         self.upper_limit = upper_limit
         self.lower_limit = lower_limit
         self.population = Population(dim=dim, num_points=self.population_size,upper_limit = self.upper_limit,lower_limit=self.lower_limit,  objective=self.func)
-        self.strategy = Strategy(select = selstrategy, ppoints=self.population.points, cost = self.population.cost)
+        self.strategy = Strategy(select = selstrategy)
     def iterate(self):
         for ix in range(self.population.num_points):
             x = self.population.points[ix]

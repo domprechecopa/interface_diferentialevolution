@@ -480,7 +480,7 @@ Discente: Ana Karina''')
     def test_dados(self):
        # num_iterations=200, dim=10, CR=0.4, F=0.48, population_size=75, print_status=False, func='ackley',upper_limit=5.12,lower_limit=-5.12)
         self.limpar_dados()
-        self.ent_num_iter.insert(INSERT, '1000')
+        self.ent_num_iter.insert(INSERT, '100')
         self.ent_dim.insert(INSERT, '10')
         self.ent_CR.insert(INSERT, '0,4')
         self.ent_F.insert(INSERT, '0,48')
