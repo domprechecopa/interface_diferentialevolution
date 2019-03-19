@@ -461,6 +461,8 @@ Discente: Ana Karina''')
         self.TProgressbar1['value'] = 0
         self.select_strategy.current(0)
         self.select_funcao.current(0)
+        self.fig.clear()
+        self.Canvas1.draw()
 
     ############## TEST DADOS ###################
     def test_dados(self):
