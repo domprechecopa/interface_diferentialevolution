@@ -86,7 +86,7 @@ class Toplevel1:
         self.Label1.configure(activebackground="#f9f9f9")
         self.Label1.configure(anchor='sw')
         self.Label1.configure(borderwidth="2")
-        self.Label1.configure(text='''Número de Iterações''')
+        self.Label1.configure(text='''Num Iterações Máxima''')
 
         self.Label1_4 = Label(self.Input_Dados)
         self.Label1_4.place(relx=0.069, rely=0.116, height=22, width=106)
@@ -130,12 +130,20 @@ class Toplevel1:
         self.Label1_9.configure(borderwidth="2")
         self.Label1_9.configure(text='''Lower Limit''')
 
-        self.Label1_10 = Label(self.Input_Dados)
-        self.Label1_10.place(relx=0.069, rely=0.638, height=22, width=106)
+        self.text_tol = Label(self.Input_Dados)
+        self.text_tol.place(relx=0.069, rely=0.638, height=22, width=106)
+        self.text_tol.configure(activebackground="#f9f9f9")
+        self.text_tol.configure(anchor='sw')
+        self.text_tol.configure(borderwidth="2")
+        self.text_tol.configure(text='''Tolerância''')
+
+        self.Label1_10 = Label(self.top)
+        self.Label1_10.place(relx=0.075, rely=0.893, height=22, width=106)
         self.Label1_10.configure(activebackground="#f9f9f9")
         self.Label1_10.configure(anchor='sw')
         self.Label1_10.configure(borderwidth="2")
         self.Label1_10.configure(text='''Print Status''')
+        self.Label1_10.configure(width=106)
 
         self.Label1_1 = Label(self.Input_Dados)
         self.Label1_1.place(relx=0.069, rely=0.725, height=22, width=106)
@@ -212,13 +220,16 @@ class Toplevel1:
         self.ent_lower_lim.configure(font="TkFixedFont")
         self.ent_lower_lim.configure(selectbackground="#c4c4c4")
 
-        self.Sel_MostrarPrint = Checkbutton(self.Frame2)
-        self.Sel_MostrarPrint.place(relx=0.08, rely=0.638, relheight=0.064
-                , relwidth=0.544)
+        self.ent_tol = Entry(self.Frame2)
+        self.ent_tol.place(relx=0.08, rely=0.638, height=22, relwidth=0.848)
+        self.ent_tol.configure(background="white")
+        self.ent_tol.configure(font="TkFixedFont")
+        self.ent_tol.configure(selectbackground="#c4c4c4")
+
+        self.Sel_MostrarPrint = Checkbutton(self.top)
+        self.Sel_MostrarPrint.place(relx=0.053, rely=0.9, relheight=0.028)
         self.Sel_MostrarPrint.configure(activebackground="#f9f9f9")
         self.Sel_MostrarPrint.configure(justify='left')
-        self.Sel_MostrarPrint.configure(text='''Mostrar''')
-        self.Sel_MostrarPrint.configure(variable=interface_tk_support.che86)
 
         self.select_funcao = ttk.Combobox(self.Frame2,values = self.funcoes)
         self.select_funcao.place(relx=0.08, rely=0.725, relheight=0.058
@@ -266,7 +277,7 @@ class Toplevel1:
                 , relheight=0.0, height=19)
 
         self.credits_text = Label(top)
-        self.credits_text.place(relx=0.011, rely=0.914, height=42, width=336)
+        self.credits_text.place(relx=0.011, rely=0.943, height=42, width=336)
         self.credits_text.configure(activebackground="#f9f9f9")
         self.credits_text.configure(anchor='nw')
         self.credits_text.configure(borderwidth="2")
@@ -333,6 +344,7 @@ Discente: Ana Karina''')
             self.dados['Population Size']=[self.ent_pop_size.get(),'int']
             self.dados['Upper Limit']=[self.ent_upper_lim.get(),'float']
             self.dados['Lower Limit']=[self.ent_lower_lim.get(),'float']
+            self.dados['Tolerancia'] = [self.ent_tol.get(), 'float']
             self.dados['Num Runs'] = [self.ent_num_run.get(),'int']
             error = False
             self.comma_dot()
@@ -363,7 +375,7 @@ Discente: Ana Karina''')
             de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=self.mostrarprint, func=self.select_funcao.get(),
                         upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar, selstrategy = self.select_strategy.get())
-            val_temp, all_vals, avg_vals = de.simulate(i)
+            val_temp, all_vals, avg_vals = de.simulate(i, tol = dados['Tolerancia'][0])
             val += val_temp
             self.all_vals.append(all_vals)
             self.avg_vals.append(avg_vals)
@@ -468,10 +480,11 @@ Discente: Ana Karina''')
     def test_dados(self):
        # num_iterations=200, dim=10, CR=0.4, F=0.48, population_size=75, print_status=False, func='ackley',upper_limit=5.12,lower_limit=-5.12)
         self.limpar_dados()
-        self.ent_num_iter.insert(INSERT, '100')
+        self.ent_num_iter.insert(INSERT, '1000')
         self.ent_dim.insert(INSERT, '10')
         self.ent_CR.insert(INSERT, '0,4')
         self.ent_F.insert(INSERT, '0,48')
+        self.ent_tol.insert(INSERT, '1E-3')
         self.ent_pop_size.insert(INSERT, '75')
         self.ent_upper_lim.insert(INSERT, '5,12')
         self.ent_lower_lim.insert(INSERT, '-5,12')

@@ -48,27 +48,30 @@ class DifferentialEvolution(object):
             x1 = {'a' : a, 'b' : b, 'c' : c, 'd' : d, 'e' : e}
             y = copy.deepcopy(x)
 
-            self.strategy.strategy(x, y, x1, self.CR,self.F)
+            self.strategy.strategy(x, y, x1, self.CR,self.F,self.population.points)
 
             y.evaluate_point()
             if y.z < x.z:
                 self.population.points[ix] = y
         self.iteration += 1
 
-    def simulate(self, runner):
+    def simulate(self, runner, tol= 1E-6):
         all_vals = []
         avg_vals = []
         pnt = get_best_point(self.population.points)
         all_vals.append(pnt.z)
         avg_vals.append(self.population.get_average_objective())
+        err = tol + 1
         self.printar("Initial best value: " + str(pnt.z))
-        while self.iteration < self.num_iterations:
+        while self.iteration < self.num_iterations and tol < err:
             if self.print_status == True and self.iteration%50 == 0:
                 pnt = get_best_point(self.population.points)
                 self.printar ("{} {}".format(pnt.z, self.population.get_average_objective()))
             self.iterate()
-            all_vals.append(get_best_point(self.population.points).z)
+            err = get_best_point(self.population.points).z
+            all_vals.append(err)
             avg_vals.append(self.population.get_average_objective())
+            
             if self.visualize == True and self.iteration%2==0:
                 self.population.get_visualization()
 
