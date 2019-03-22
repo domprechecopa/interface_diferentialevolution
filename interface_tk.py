@@ -418,7 +418,7 @@ Discente: Ana Karina''')
                 self.next_grafico['state']  = NORMAL
 
             self.fig.clear()
-            a = self.fig.add_subplot(111, title="{} ,2d".format(self.lastrunfunc))
+            a = self.fig.add_subplot(111, title="{} ,2d".format(self.lastrunfunc), xlabel = 'Iterações', ylabel = 'Valor da Função Objetiva', autoscale_on = True)
             a.plot(self.all_vals[indice], 'r', label='Best')
             a.plot(self.avg_vals[indice], 'g', label='Average')
             a.grid(True, linestyle='-.')
