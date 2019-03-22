@@ -335,6 +335,8 @@ Discente: Ana Karina''')
         self.toolbar.update()
         self.Canvas1._tkcanvas.place(relx=0.363, rely=0.029, relheight=0.567
                 , relwidth=0.589)
+
+        self.lastrunfunc = ''
     def executar(self):
             self.dados = {}
             self.dados['Numero de Iteracoes']=[self.ent_num_iter.get(),'int']
@@ -372,6 +374,7 @@ Discente: Ana Karina''')
         self.img = []
         for i in range(number_of_runs):
             start = datetime.datetime.now()
+            self.lastrunfunc = self.select_funcao.get()
             de = DifferentialEvolution(num_iterations=dados['Numero de Iteracoes'][0], dim=dados['Dim'][0],
                         CR=dados['CR'][0], F=dados['F'][0], population_size=dados['Population Size'][0], print_status=self.mostrarprint, func=self.select_funcao.get(),
                         upper_limit=dados['Upper Limit'][0],lower_limit=dados['Lower Limit'][0],printar=self.printar, selstrategy = self.select_strategy.get())
@@ -415,7 +418,7 @@ Discente: Ana Karina''')
                 self.next_grafico['state']  = NORMAL
 
             self.fig.clear()
-            a = self.fig.add_subplot(111)
+            a = self.fig.add_subplot(111, title="{} ,2d".format(self.lastrunfunc))
             a.plot(self.all_vals[indice], 'r', label='Best')
             a.plot(self.avg_vals[indice], 'g', label='Average')
             a.grid(True, linestyle='-.')
