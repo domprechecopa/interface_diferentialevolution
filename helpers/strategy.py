@@ -67,7 +67,8 @@ class Strategy:
 
             if ri < CR or iy == R:
                 
-                y.coords[iy] = y.coords[iy] + F*(self.points[self.indexbest].coords[iy] - y.coords[iy]) + F * (x1[a].coords[iy] + x1[b].coords[iy])
+                y.coords[iy] = y.coords[iy] + F*(get_best_point(
+                    ppoints).coords[iy] - y.coords[iy]) + F * (x1[a].coords[iy] + x1[b].coords[iy])
 
     def rand1exp(self,x, y, x1 , CR,F, ppoints = None):
         [a,b,c,d,e] = ['a','b','c','d','e']
