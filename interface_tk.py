@@ -7,6 +7,8 @@ from helpers import interface_tk_support
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 from PIL import Image
+from matplotlib import rcParams
+rcParams.update({'figure.autolayout': True})
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
@@ -418,9 +420,9 @@ Discente: Ana Karina''')
                 self.next_grafico['state']  = NORMAL
 
             self.fig.clear()
-            a = self.fig.add_subplot(111, title="{} ,2d".format(self.lastrunfunc), xlabel = 'Iterações', ylabel = 'Valor da Função Objetiva', autoscale_on = True)
-            a.plot(self.all_vals[indice], 'r', label='Best')
-            a.plot(self.avg_vals[indice], 'g', label='Average')
+            a = self.fig.add_subplot(111, title="{} ,2d".format(self.lastrunfunc), xlabel = 'Iterações', ylabel = 'Valor da Função Objetiva', autoscale_on = True, )
+            a.plot(self.all_vals[indice], 'r', label='Melhor')
+            a.plot(self.avg_vals[indice], 'g', label='Média')
             a.grid(True, linestyle='-.')
             a.legend()
             # a.xlabel('Iterations')
