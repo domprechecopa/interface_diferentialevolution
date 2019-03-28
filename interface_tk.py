@@ -320,9 +320,9 @@ Discente: Ana Karina''')
         self.next_grafico.configure(text='''Next >''')
 
 #############BUTTON TEST #########################
-        self.Test_Button = Button(top, command = self.test_dados)
+        self.Test_Button = Button(top, command = self.save_plots)
         self.Test_Button.place(relx=0.705, rely=0.914, height=27, width=112)
-        self.Test_Button.configure(text='''Don't Touch me''')
+        self.Test_Button.configure(text='Save Plots')
 ##################################################
 
         self.NavegateFrame = Frame(top)
@@ -450,8 +450,17 @@ Discente: Ana Karina''')
                 if ',' in self.dados[i][0]:
                     self.dados[i][0] = self.dados[i][0].replace(',','.')
                     
-        
-
+    def save_plots(self):
+        for i in range(len(self.all_vals)):
+            self.fig.clear()
+            a = self.fig.add_subplot(111, title="{} ,2d".format(self.lastrunfunc), xlabel = 'Iterações', ylabel = 'Valor da Função Objetiva', autoscale_on = True, )
+            a.plot(self.all_vals[i], 'r', label='Melhor')
+            a.plot(self.avg_vals[i], 'g', label='Média')
+            a.grid(True, linestyle='-.')
+            a.legend()
+            self.fig.savefig('graphics/plot/grafico-{}.png'.format(i))
+        self.printar('Plots salvo em /graphics/plot !')
+            
 
     def limpar_historico(self):
         self.Scrolledlistbox1.delete(0, END)
